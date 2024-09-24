@@ -10,13 +10,10 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, UseFormReturn } from "react-hook-form";
-import { z } from "zod";
+import { UseFormReturn } from "react-hook-form";
 import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
-import { router, usePage } from "@inertiajs/react";
-import { JabatanOption } from "./Types";
+import { router } from "@inertiajs/react";
 import { useToast } from "@/hooks/use-toast";
 import {
     Dialog,
@@ -27,12 +24,12 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
-import { defaultSchema, editSchema, FormSchema } from "./FormSchema";
-import { useModeStore } from "@/store/useModeStore";
+import { FormSchema } from "./FormSchema";
+import { Jabatan } from "@/types";
 
 type FormProps = {
     form: UseFormReturn<FormSchema>;
-    jabatanOptions: JabatanOption[];
+    jabatanOptions: Jabatan[];
     openFormModal: boolean;
     setOpenFormModal: (value: boolean) => void;
 };
@@ -45,54 +42,16 @@ export default function Form({
 }: FormProps) {
     const { toast } = useToast();
 
-    const props = usePage().props;
-
-    const { mode, setMode } = useModeStore();
-
     const [loadingCreateJabatan, setLoadingCreateJabatan] =
         React.useState(false);
 
-    const onSubmit = (values: FormSchema) => {
-        console.log("form values", values);
-
-        if (mode === "create") {
-            router.post(route("data-master.store"), values, {
-                onSuccess: (page) => {
-                    toast({
-                        title: page.props.flash.success,
-                    });
-
-                    setOpenFormModal(false);
-                },
-                onError: (errors) => {
-                    console.log("onError", errors);
-
-                    if (errors.error) {
-                        toast({
-                            variant: "destructive",
-                            title: "Ups! Terjadi kesalahan",
-                            description:
-                                "Terjadi kesalahan saat menyimpan data",
-                        });
-
-                        setOpenFormModal(false);
-                    }
-
-                    Object.keys(errors).forEach((key) => {
-                        form.setError(key, {
-                            message: errors[key],
-                        });
-                    });
-                },
-            });
-        }
-
-        if (mode === "edit") {
-            if (!values.feedback) {
-                values.penilaianKeJabatan = [];
+    const onSubmit = (data: FormSchema) => {
+        if (data.id) {
+            if (!data.feedback) {
+                data.penilaianKeJabatan = [];
             }
 
-            router.patch(route("data-master.update", values.id), values, {
+            router.patch(route("data-master.update", data.id), data, {
                 onSuccess: (page) => {
                     toast({
                         title: page.props.flash.success,
@@ -115,7 +74,38 @@ export default function Form({
                     }
                 },
             });
+
+            return;
         }
+
+        router.post(route("data-master.store"), data, {
+            onSuccess: (page) => {
+                toast({
+                    title: page.props.flash.success,
+                });
+
+                setOpenFormModal(false);
+            },
+            onError: (errors) => {
+                console.log("onError", errors);
+
+                if (errors.error) {
+                    toast({
+                        variant: "destructive",
+                        title: "Ups! Terjadi kesalahan",
+                        description: "Terjadi kesalahan saat menyimpan data",
+                    });
+
+                    setOpenFormModal(false);
+                }
+
+                Object.keys(errors).forEach((key) => {
+                    form.setError(key as any, {
+                        message: errors[key],
+                    });
+                });
+            },
+        });
     };
 
     const handleCreateJabatan = (inputValue: string) => {
@@ -128,9 +118,9 @@ export default function Form({
             },
             {
                 onSuccess: (response) => {
-                    const newOption = response.props.jabatanOptions.find(
-                        (option: any) => option.label === inputValue
-                    );
+                    const newOption = (
+                        response.props.jabatanOptions as any
+                    ).find((option: any) => option.label === inputValue);
 
                     if (newOption) {
                         form.setValue("jabatan", newOption);

@@ -5,6 +5,7 @@ import {
     RowData,
     useReactTable,
 } from "@tanstack/react-table";
+import { PaginatedResponse } from "@/types";
 import { Card, CardContent, CardFooter } from "./card";
 import { DataTableViewOptions } from "./data-table-column-toggle";
 import {
@@ -16,7 +17,6 @@ import {
     TableRow,
 } from "./table";
 import { DataTablePagination } from "./data-table-pagination";
-import { PaginatedResponse } from "@/types";
 
 declare module "@tanstack/react-table" {
     interface TableMeta<TData extends RowData> {
@@ -121,7 +121,7 @@ export function DataTable<TData>({
                 </div>
             </CardContent>
             <CardFooter>
-                <DataTablePagination table={table} rows={rows} />
+                <DataTablePagination<TData> table={table} rows={rows} />
             </CardFooter>
         </Card>
     );

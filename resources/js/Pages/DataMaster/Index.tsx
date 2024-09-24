@@ -1,39 +1,25 @@
 import React from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Button } from "@/components/ui/button";
-import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input, Label } from "@headlessui/react";
-import { DataMaster, JabatanOption } from "./Types";
 import Form from "./Form";
-import { DataTable } from "./Components/DataTable";
-import { getColumns } from "./Components/Columns";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useModeStore } from "@/store/useModeStore";
 import { FormSchema, ValidatorSchema } from "./FormSchema";
 import { router } from "@inertiajs/react";
 import { useToast } from "@/hooks/use-toast";
+import { columns, DataMaster } from "./Components/Columns";
+import { DataTable } from "@/components/ui/data-table";
+import { Jabatan } from "@/types";
 
 type IndexProps = {
     dataMaster: any;
-    jabatanOptions: JabatanOption[];
+    jabatanOptions: Jabatan[];
 };
 
 export default function Index({ dataMaster, jabatanOptions }: IndexProps) {
-    const [openFormModal, setOpenFormModal] = React.useState(false);
-
     const { toast } = useToast();
-    const { mode, setMode } = useModeStore();
+
+    const [openFormModal, setOpenFormModal] = React.useState(false);
 
     const form = useForm<FormSchema>({
         resolver: zodResolver(ValidatorSchema),
@@ -43,26 +29,30 @@ export default function Index({ dataMaster, jabatanOptions }: IndexProps) {
             name: "",
             password: "",
             feedback: false,
-            jabatan: null,
+            jabatan: undefined,
         },
     });
 
-    const handleEdit = (id: number, rowData: DataMaster) => {
-        setMode("edit");
+    React.useEffect(() => {
+        if (!openFormModal) {
+            form.reset();
+        }
+    }, [openFormModal]);
 
-        form.setValue("id", id);
+    const handleUpdate = (data: DataMaster) => {
+        form.setValue("id", data.id);
         form.setValue("isCreate", false);
-        form.setValue("nip", rowData.users.nip);
-        form.setValue("name", rowData.users.name);
+        form.setValue("nip", data.users.nip);
+        form.setValue("name", data.users.name);
         form.setValue("password", "");
         form.setValue("jabatan", {
-            value: rowData.users.jabatan!.id,
-            label: rowData.users.jabatan!.nama,
+            value: data.users.jabatan!.id,
+            label: data.users.jabatan!.nama,
         });
-        form.setValue("feedback", rowData.feedback === 1 ? true : false);
+        form.setValue("feedback", data.feedback === 1 ? true : false);
         form.setValue(
             "penilaianKeJabatan",
-            rowData.penilaian_jabatan.map((data) => ({
+            data.penilaian_jabatan.map((data) => ({
                 value: data.jabatan.id,
                 label: data.jabatan.nama,
             }))
@@ -84,20 +74,22 @@ export default function Index({ dataMaster, jabatanOptions }: IndexProps) {
                 });
             },
             onError: (errors) => {
-                toast({
-                    title: page.props.flash.error,
+                if (errors.error) {
+                    toast({
+                        variant: "destructive",
+                        title: "Ups! Terjadi kesalahan",
+                        description: "Terjadi kesalahan saat menyimpan data",
+                    });
+                }
+
+                Object.keys(errors).forEach((key) => {
+                    form.setError(key as any, {
+                        message: errors[key],
+                    });
                 });
             },
         });
     };
-
-    React.useEffect(() => {
-        if (!openFormModal) {
-            form.reset();
-            form.resetField("jabatan");
-            setMode("create");
-        }
-    }, [openFormModal]);
 
     return (
         <AuthenticatedLayout header="Data Master">
@@ -110,16 +102,15 @@ export default function Index({ dataMaster, jabatanOptions }: IndexProps) {
                 />
             </div>
 
-            <DataTable
-                columns={getColumns({
+            <DataTable<DataMaster>
+                columns={columns}
+                rows={dataMaster}
+                meta={{
                     fromNumber: dataMaster.from,
                     toNumber: dataMaster.to,
-                    form: form,
-                    onEdit: handleEdit,
-                    onDelete: handleDelete,
-                })}
-                rows={dataMaster}
-                form={form}
+                    updateData: handleUpdate,
+                    deleteData: handleDelete,
+                }}
             />
         </AuthenticatedLayout>
     );

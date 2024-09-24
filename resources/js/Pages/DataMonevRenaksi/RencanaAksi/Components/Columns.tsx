@@ -98,15 +98,7 @@ export const columns: ColumnDef<DataRencanaAksi>[] = [
     },
     {
         id: "actions",
-        cell: ({
-            getValue,
-            row: { index, original },
-            column: { id },
-            table,
-        }) => {
-            // const rowData = row.original;
-            // const id = row.original.id;
-
+        cell: ({ row: { original }, table }) => {
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>

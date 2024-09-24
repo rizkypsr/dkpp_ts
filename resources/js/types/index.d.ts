@@ -1,9 +1,19 @@
 export interface User {
     id: number;
+    nip: string;
     name: string;
+    username: string;
+    jabatan?: Jabatan;
     email: string;
     email_verified_at?: string;
 }
+
+export type Jabatan = {
+    id: number;
+    nama: string;
+    created_at: string;
+    updated_at: string;
+};
 
 export type PaginationLink = {
     url: string | null;
@@ -32,4 +42,8 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     auth: {
         user: User;
     };
+    flash: {
+        success: string;
+        error: string;
+    }
 };

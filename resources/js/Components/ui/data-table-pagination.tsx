@@ -5,19 +5,13 @@ import {
     DoubleArrowRightIcon,
 } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "./select";
 import { Button } from "./button";
 import { Link } from "@inertiajs/react";
+import { PaginatedResponse } from "@/types";
 
 interface DataTablePaginationProps<TData> {
     table: Table<TData>;
-    rows: TData[];
+    rows: PaginatedResponse<TData>;
 }
 
 export function DataTablePagination<TData>({
@@ -75,7 +69,7 @@ export function DataTablePagination<TData>({
                         </Link>
                     </Button>
                     <Button asChild variant="outline" className="w-8 h-8 p-0">
-                        <Link href={rows.prev_page_url}>
+                        <Link href={rows.prev_page_url ?? "#"}>
                             <span className="sr-only">
                                 Menuju halaman sebelumnya
                             </span>
@@ -83,7 +77,7 @@ export function DataTablePagination<TData>({
                         </Link>
                     </Button>
                     <Button asChild variant="outline" className="w-8 h-8 p-0">
-                        <Link href={rows.next_page_url}>
+                        <Link href={rows.next_page_url ?? "#"}>
                             <span className="sr-only">
                                 Menuju halaman berikutnya
                             </span>

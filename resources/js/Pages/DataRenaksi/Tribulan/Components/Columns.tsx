@@ -78,7 +78,11 @@ export const columns: ColumnDef<DataTribulan>[] = [
         accessorKey: "feedback_by",
         header: "Feedback By",
         cell: (info) => {
-            return <div className="w-24">{info.getValue()?.name ?? "-"}</div>;
+            return (
+                <div className="w-24">
+                    {(info.getValue() as User)?.name ?? "-"}
+                </div>
+            );
         },
     },
     {

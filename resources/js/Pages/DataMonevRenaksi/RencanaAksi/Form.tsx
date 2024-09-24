@@ -51,7 +51,9 @@ export default function Form({
                 {
                     ...data,
                     _method: "put",
-                    bukti_pendukung: data.bukti_pendukung[0],
+                    bukti_pendukung: data.bukti_pendukung
+                        ? data.bukti_pendukung[0]
+                        : undefined,
                 },
                 {
                     forceFormData: true,
@@ -93,7 +95,9 @@ export default function Form({
             ),
             {
                 ...data,
-                bukti_pendukung: data.bukti_pendukung[0],
+                bukti_pendukung: data.bukti_pendukung
+                    ? data.bukti_pendukung[0]
+                    : undefined,
             },
             {
                 forceFormData: true,
