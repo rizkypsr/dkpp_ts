@@ -23,6 +23,7 @@ export type DataRencanaAksi = {
     bukti_pendukung: string;
     feedback: string;
     feedbackBy: User;
+    data_laporan_monev_renaksi_id: number;
     created_at: string;
     updated_at: string;
 };
@@ -82,19 +83,33 @@ export const columns: ColumnDef<DataRencanaAksi>[] = [
         header: "Bukti Pendukung",
         cell: (info) => {
             return (
-                <a href={info.getValue() as any} target="_blank">
-                    <Button>Lihat</Button>
-                </a>
+                <div className="w-24">
+                    <a href={info.getValue() as any} target="_blank">
+                        <Button>Lihat</Button>
+                    </a>
+                </div>
             );
         },
     },
     {
         accessorKey: "feedback",
         header: "Feedback",
+        cell: (info) => {
+            return (
+                <div className="w-24">{(info.getValue() as any) ?? "-"}</div>
+            );
+        },
     },
     {
         accessorKey: "feedback_by",
         header: "Feedback By",
+        cell: (info) => {
+            return (
+                <div className="w-24">
+                    {(info.getValue() as User)?.name ?? "-"}
+                </div>
+            );
+        },
     },
     {
         id: "actions",
@@ -109,6 +124,20 @@ export const columns: ColumnDef<DataRencanaAksi>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Aksi</DropdownMenuLabel>
+                        <DropdownMenuItem>
+                            <Link
+                                href={route(
+                                    "data-laporan-monev-renaksi.rencana-aksi.edit",
+                                    {
+                                        data_laporan_monev_renaksi:
+                                            original.data_laporan_monev_renaksi_id,
+                                        rencana_aksi: original.id,
+                                    }
+                                )}
+                            >
+                                Feedback
+                            </Link>
+                        </DropdownMenuItem>
                         <DropdownMenuItem
                             onClick={() => {
                                 table.options.meta?.updateData(original);

@@ -30,4 +30,8 @@ class RencanaAksi extends Model
             get: fn (string $value) => asset('storage/' . $value),
         );
     }
+
+    public function feedbackBy() {
+        return $this->belongsTo(User::class, 'feedback_by');
+    }
 }

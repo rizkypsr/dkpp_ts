@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MonevRenaksi;
 use App\Models\RencanaAksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -14,7 +15,7 @@ class RencanaAksiController extends Controller
      */
     public function index(string $id)
     {
-        $dataRencanaAksi = RencanaAksi::where('data_laporan_monev_renaksi_id', $id)->paginate(10);
+        $dataRencanaAksi = RencanaAksi::with(['feedbackBy'])->where('data_laporan_monev_renaksi_id', $id)->paginate(10);
 
         return Inertia::render('DataMonevRenaksi/RencanaAksi/Index', [
             'monevRenaksiId' => $id,
@@ -91,15 +92,28 @@ class RencanaAksiController extends Controller
      */
     public function show(string $id)
     {
-        //
+
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $monevRenaksiId, string $rencanaAksiId)
     {
-        //
+        try {
+            $monevRenaksi = MonevRenaksi::findOrFail($monevRenaksiId);
+            $rencanaAksi = RencanaAksi::findOrFail($rencanaAksiId);
+
+            return Inertia::render('DataMonevRenaksi/RencanaAksi/Feedback', [
+                'monevRenaksi' => $monevRenaksi,
+                'rencanaAksi' => $rencanaAksi,
+            ]);
+
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors([
+                'error' => $e->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -108,13 +122,14 @@ class RencanaAksiController extends Controller
     public function update(Request $request, string $monevRenaksiId, string $rencanaAksiId)
     {
         $validated = $request->validate([
-            'rencana_aksi' => 'required|string|max:255',
-            'target' => 'required|string|max:255',
-            'realisasi' => 'required|string|max:255',
-            'capaian' => 'required|numeric',
-            'catatan' => 'required|string',
-            'tindak_lanjut' => 'required|string',
-            'bukti_pendukung' => 'nullable|file|max:5120'
+            'rencana_aksi' => 'string|max:255',
+            'target' => 'string|max:255',
+            'realisasi' => 'string|max:255',
+            'capaian' => 'numeric',
+            'catatan' => 'string',
+            'tindak_lanjut' => 'string',
+            'bukti_pendukung' => 'nullable|file|max:5120',
+            'feedback' => 'string',
         ], [
             'rencana_aksi.required' => 'Rencana aksi harus diisi',
             'rencana_aksi.max' => 'Rencana aksi maksimal 255 karakter',
@@ -131,6 +146,10 @@ class RencanaAksiController extends Controller
         ]);
 
         try {
+            if ($request->feedback) {
+                $validated['feedback_by'] = auth()->user()->id;
+            }
+
             $rencanaAksi = RencanaAksi::findOrFail($rencanaAksiId);
 
             $filePath = null;
@@ -143,18 +162,11 @@ class RencanaAksiController extends Controller
                 if ($rencanaAksi->bukti_pendukung) {
                     Storage::delete($rencanaAksi->bukti_pendukung);
                 }
+
+                $validated['bukti_pendukung'] = $filePath ?? $rencanaAksi->bukti_pendukung;
             }
 
-
-            $rencanaAksi->update([
-                'rencana_aksi' => $validated['rencana_aksi'],
-                'target' => $validated['target'],
-                'realisasi' => $validated['realisasi'],
-                'capaian' => $validated['capaian'],
-                'catatan' => $validated['catatan'],
-                'tindak_lanjut' => $validated['tindak_lanjut'],
-                'bukti_pendukung' => $filePath ?? $rencanaAksi->bukti_pendukung,
-            ]);
+            $rencanaAksi->update($validated);
 
             return to_route('data-laporan-monev-renaksi.rencana-aksi.index', $monevRenaksiId)
                 ->with('success', 'Data berhasil ditambahkan');
