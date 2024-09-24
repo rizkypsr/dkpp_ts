@@ -1,6 +1,5 @@
 import { PropsWithChildren } from "react";
 import { Link, usePage } from "@inertiajs/react";
-import { Button } from "@/components/ui/button";
 import {
     Blocks,
     Bolt,
@@ -21,6 +20,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Toaster } from "@/components/ui/toaster";
+import { Button } from "@/components/ui/button";
 
 export default function Authenticated({
     header,
