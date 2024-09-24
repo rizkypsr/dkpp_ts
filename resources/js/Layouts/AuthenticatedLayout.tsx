@@ -209,12 +209,13 @@ export default function Authenticated({
                     <div className="ml-auto">
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button
-                                    variant="outline"
-                                    className="overflow-hidden rounded-full"
-                                >
-                                    {`${props.auth.user.name} | ${props.auth.user.roles[0].name}`}
-                                </Button>
+                                <div className="flex flex-col pl-2 text-sm font-semibold border-l cursor-pointer">
+                                    <div>{props.auth.user.name}</div>
+                                    <div className="text-xs">
+                                        {props.auth.user.nip}
+                                    </div>
+                                    {/* <span>{props.auth.user.roles[0].name}</span> */}
+                                </div>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
                                 <DropdownMenuLabel>
