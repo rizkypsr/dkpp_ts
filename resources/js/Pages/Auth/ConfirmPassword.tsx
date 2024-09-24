@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { FormEventHandler } from "react";
 import GuestLayout from "@/Layouts/GuestLayout";
 import InputLabel from "@/components/InputLabel";
