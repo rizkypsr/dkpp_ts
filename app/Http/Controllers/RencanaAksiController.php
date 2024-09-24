@@ -64,7 +64,7 @@ class RencanaAksiController extends Controller
             if ($request->hasFile('bukti_pendukung')) {
                 $bukti_pendukung = $request->file('bukti_pendukung');
                 $fileName = time() . '_' . $bukti_pendukung->getClientOriginalName();
-                $filePath = $bukti_pendukung->storeAs('rencana-aksi', $fileName);
+                $filePath = $bukti_pendukung->storeAs('rencana-aksi', $fileName, 'public');
             }
 
             RencanaAksi::create([
@@ -138,7 +138,7 @@ class RencanaAksiController extends Controller
             if ($request->hasFile('bukti_pendukung')) {
                 $bukti_pendukung = $request->file('bukti_pendukung');
                 $fileName = time() . '_' . $bukti_pendukung->getClientOriginalName();
-                $filePath = $bukti_pendukung->storeAs('rencana-aksi', $fileName);
+                $filePath = $bukti_pendukung->storeAs('rencana-aksi', $fileName, 'public');
 
                 if ($rencanaAksi->bukti_pendukung) {
                     Storage::delete($rencanaAksi->bukti_pendukung);

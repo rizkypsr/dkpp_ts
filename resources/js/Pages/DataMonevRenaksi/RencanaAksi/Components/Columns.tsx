@@ -82,9 +82,9 @@ export const columns: ColumnDef<DataRencanaAksi>[] = [
         header: "Bukti Pendukung",
         cell: (info) => {
             return (
-                <Link href={info.getValue() as any}>
+                <a href={info.getValue() as any} target="_blank">
                     <Button>Lihat</Button>
-                </Link>
+                </a>
             );
         },
     },
