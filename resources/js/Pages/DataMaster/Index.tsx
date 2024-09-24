@@ -1,6 +1,6 @@
 import React from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
     Dialog,
     DialogClose,
@@ -10,7 +10,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/Components/ui/dialog";
+} from "@/components/ui/dialog";
 import { Input, Label } from "@headlessui/react";
 import { DataMaster, JabatanOption } from "./Types";
 import Form from "./Form";

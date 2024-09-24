@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
     Form as FormWrapper,
     FormControl,
@@ -8,8 +8,8 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/Components/ui/form";
-import { Input } from "@/Components/ui/input";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, UseFormReturn } from "react-hook-form";
 import { z } from "zod";
@@ -25,8 +25,8 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/Components/ui/dialog";
-import { Checkbox } from "@/Components/ui/checkbox";
+} from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
 import { defaultSchema, editSchema, FormSchema } from "./FormSchema";
 import { useModeStore } from "@/store/useModeStore";
 

@@ -1,11 +1,11 @@
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuTrigger,
-} from "@/Components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { Link } from "@inertiajs/react";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";

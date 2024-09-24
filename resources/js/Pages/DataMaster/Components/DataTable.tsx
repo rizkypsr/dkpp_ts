@@ -1,4 +1,4 @@
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
@@ -6,10 +6,10 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "@/Components/ui/card";
-import { DataTableViewOptions } from "@/Components/ui/data-table-column-toggle";
-import { DataTablePagination } from "@/Components/ui/data-table-pagination";
-import { Input } from "@/Components/ui/input";
+} from "@/components/ui/card";
+import { DataTableViewOptions } from "@/components/ui/data-table-column-toggle";
+import { DataTablePagination } from "@/components/ui/data-table-pagination";
+import { Input } from "@/components/ui/input";
 import {
     Table,
     TableBody,
@@ -17,7 +17,7 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/Components/ui/table";
+} from "@/components/ui/table";
 import {
     ColumnDef,
     flexRender,

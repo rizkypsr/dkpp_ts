@@ -1,12 +1,12 @@
-import PrimaryButton from "@/Components/PrimaryButton";
-import { Button } from "@/Components/ui/button";
+import PrimaryButton from "@/components/PrimaryButton";
+import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuTrigger,
-} from "@/Components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { Link } from "@inertiajs/react";
 import { ColumnDef, RowData } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";

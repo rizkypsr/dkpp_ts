@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
     Dialog,
     DialogContent,
@@ -7,7 +7,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/Components/ui/dialog";
+} from "@/components/ui/dialog";
 import {
     FormControl,
     FormField,
@@ -15,8 +15,8 @@ import {
     FormLabel,
     FormMessage,
     Form as FormWrapper,
-} from "@/Components/ui/form";
-import { Input } from "@/Components/ui/input";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { FormSchema } from "./Components/FormSchema";

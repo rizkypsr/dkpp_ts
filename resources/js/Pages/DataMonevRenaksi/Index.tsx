@@ -7,7 +7,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PaginatedResponse } from "@/types";
 import { columns, DataMonevRenaksi } from "./Components/Columns";
-import { DataTable } from "@/Components/ui/data-table";
+import { DataTable } from "@/components/ui/data-table";
 import { router } from "@inertiajs/react";
 import { useToast } from "@/hooks/use-toast";
 

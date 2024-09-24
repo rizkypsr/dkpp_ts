@@ -10,7 +10,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/Components/ui/dialog";
+} from "@/components/ui/dialog";
 import {
     FormControl,
     FormField,
@@ -18,10 +18,10 @@ import {
     FormLabel,
     FormMessage,
     Form as FormWrapper,
-} from "@/Components/ui/form";
-import { Button } from "@/Components/ui/button";
-import { Input } from "@/Components/ui/input";
-import { Textarea } from "@/Components/ui/textarea";
+} from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { router } from "@inertiajs/react";
 
 type FormProps = {

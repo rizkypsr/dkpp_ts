@@ -2,7 +2,7 @@ import React from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PaginatedResponse } from "@/types";
 import { columns, DataKurja } from "./Components/Columns";
-import { DataTable } from "@/Components/ui/data-table";
+import { DataTable } from "@/components/ui/data-table";
 import Form from "./Form";
 import { useForm } from "react-hook-form";
 import { z } from "zod";

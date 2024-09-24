@@ -1,6 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { DataMaster } from "../Types";
-import { Badge } from "@/Components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -8,10 +8,10 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/Components/ui/dropdown-menu";
-import { Button } from "@/Components/ui/button";
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
-import { DataTableColumnHeader } from "@/Components/ui/data-table-column-header";
+import { DataTableColumnHeader } from "@/components/ui/data-table-column-header";
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { formSchema } from "../FormSchema";

@@ -9,8 +9,8 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/Components/ui/dialog";
-import { Button } from "@/Components/ui/button";
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import {
     Form as FormWrapper,
     FormControl,
@@ -18,9 +18,9 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/Components/ui/form";
-import { Input } from "@/Components/ui/input";
-import { Textarea } from "@/Components/ui/textarea";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { router } from "@inertiajs/react";
 import { useToast } from "@/hooks/use-toast";
 

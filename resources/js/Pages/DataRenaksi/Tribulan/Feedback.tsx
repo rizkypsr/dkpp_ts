@@ -2,7 +2,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 import React from "react";
 import { DataTribulan } from "./Components/Columns";
-import { Card, CardContent } from "@/Components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import {
     FormControl,
     FormField,
@@ -10,12 +10,12 @@ import {
     FormLabel,
     FormMessage,
     Form,
-} from "@/Components/ui/form";
+} from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Input } from "@/Components/ui/input";
-import { Button } from "@/Components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { router, usePage } from "@inertiajs/react";
 import { useToast } from "@/hooks/use-toast";
 

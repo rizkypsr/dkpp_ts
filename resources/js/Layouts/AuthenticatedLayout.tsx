@@ -1,6 +1,6 @@
 import { PropsWithChildren, ReactNode } from "react";
 import { Link, usePage } from "@inertiajs/react";
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
     Blocks,
     Bolt,
@@ -18,9 +18,9 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/Components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetTrigger } from "@/Components/ui/sheet";
-import { Toaster } from "@/Components/ui/toaster";
+} from "@/components/ui/dropdown-menu";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function Authenticated({
     header,

@@ -2,7 +2,7 @@ import React from "react";
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { FormSchema } from "./FormSchema";
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
     Dialog,
     DialogContent,
@@ -10,7 +10,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/Components/ui/dialog";
+} from "@/components/ui/dialog";
 import {
     FormControl,
     FormField,
@@ -18,9 +18,9 @@ import {
     FormLabel,
     FormMessage,
     Form as FormWrapper,
-} from "@/Components/ui/form";
+} from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-import { Input } from "@/Components/ui/input";
+import { Input } from "@/components/ui/input";
 import { router } from "@inertiajs/react";
 
 type FormProps = {

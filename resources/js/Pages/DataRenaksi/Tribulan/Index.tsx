@@ -3,7 +3,7 @@ import { PaginatedResponse } from "@/types";
 
 import React from "react";
 import { columns, DataTribulan } from "./Components/Columns";
-import { DataTable } from "@/Components/ui/data-table";
+import { DataTable } from "@/components/ui/data-table";
 import Form from "./Form";
 import { useToast } from "@/hooks/use-toast";
 import { useForm } from "react-hook-form";

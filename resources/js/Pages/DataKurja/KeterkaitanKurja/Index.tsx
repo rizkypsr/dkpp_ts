@@ -8,7 +8,7 @@ import { FormSchema } from "./FormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { columns, DataKeterkaitanKurja } from "./Components/Columns";
 import { PaginatedResponse } from "@/types";
-import { DataTable } from "@/Components/ui/data-table";
+import { DataTable } from "@/components/ui/data-table";
 import { router } from "@inertiajs/react";
 
 type IndexProps = {
