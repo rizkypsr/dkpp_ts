@@ -41,7 +41,7 @@ export default function Login({
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="username" value="Username" />
+                    <InputLabel htmlFor="username" value="NIP" />
 
                     <TextInput
                         id="username"
