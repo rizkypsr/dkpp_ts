@@ -100,7 +100,7 @@ export default function Form({ form, openModal, setOpenModal }: FormProps) {
                 <Button>Tambah Data Laporan Kurja</Button>
             </DialogTrigger>
 
-            <DialogContent className="sm:max-w-md">
+            <DialogContent className="overflow-y-auto sm:max-w-md sm:max-h-[90%]">
                 <DialogHeader>
                     <DialogTitle>Tambah Data Laporan Kurja</DialogTitle>
                     <DialogDescription>

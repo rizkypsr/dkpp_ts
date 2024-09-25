@@ -140,7 +140,7 @@ export default function Form({
                 <Button>Tambah Data Master</Button>
             </DialogTrigger>
 
-            <DialogContent className="sm:max-w-md">
+            <DialogContent className="overflow-y-auto sm:max-w-md sm:max-h-[90%]">
                 <DialogHeader>
                     <DialogTitle>Tambah Data Master</DialogTitle>
                     <DialogDescription>
