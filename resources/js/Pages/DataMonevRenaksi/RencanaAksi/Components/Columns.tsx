@@ -82,10 +82,12 @@ export const columns: ColumnDef<DataRencanaAksi>[] = [
         accessorKey: "bukti_pendukung",
         header: "Bukti Pendukung",
         cell: (info) => {
+            const value = info.getValue() as any;
+
             return (
                 <div className="w-24">
-                    <a href={info.getValue() as any} target="_blank">
-                        <Button>Lihat</Button>
+                    <a href={value} target="_blank">
+                        <Button disabled={value == null}>Lihat</Button>
                     </a>
                 </div>
             );

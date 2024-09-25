@@ -27,9 +27,10 @@ class RencanaAksi extends Model
 
     public function buktiPendukung(): Attribute {
         return Attribute::make(
-            get: fn (string $value) => asset('storage/' . $value),
+            get: fn (?string $value) => $value ? asset('storage/' . $value) : $value,
         );
     }
+
 
     public function feedbackBy() {
         return $this->belongsTo(User::class, 'feedback_by');
