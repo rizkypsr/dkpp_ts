@@ -9,8 +9,6 @@ import {
     Form,
 } from "@/components/ui/form";
 import { Card, CardContent } from "@/components/ui/card";
-import { DataMonevRenaksi } from "../Components/Columns";
-import { DataRencanaAksi } from "./Components/Columns";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { useForm } from "react-hook-form";
@@ -18,10 +16,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { router } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { DataKurja } from "../Components/Columns";
+import { DataKeterkaitanKurja } from "./Components/Columns";
 
 type FeedbackProps = {
-    monevRenaksi: DataMonevRenaksi;
-    rencanaAksi: DataRencanaAksi;
+    dataKurja: DataKurja;
+    keterkaitanKurja: DataKeterkaitanKurja;
     canFeedback: boolean;
 };
 
@@ -31,8 +31,8 @@ const FormSchema = z.object({
 });
 
 export default function Feedback({
-    monevRenaksi,
-    rencanaAksi,
+    dataKurja,
+    keterkaitanKurja,
     canFeedback,
 }: FeedbackProps) {
     const { toast } = useToast();
@@ -40,16 +40,16 @@ export default function Feedback({
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
-            id: rencanaAksi.id,
-            feedback: rencanaAksi.feedback ?? "",
+            id: keterkaitanKurja.id,
+            feedback: keterkaitanKurja.feedback ?? "",
         },
     });
 
     const onSubmit = (data: z.infer<typeof FormSchema>) => {
         router.put(
-            route("data-laporan-monev-renaksi.rencana-aksi.update", {
-                data_laporan_monev_renaksi: monevRenaksi.id,
-                rencana_aksi: rencanaAksi.id,
+            route("data-laporan-kurja.keterkaitan-kurja.update", {
+                data_laporan_kurja: dataKurja.id,
+                keterkaitan_kurja: keterkaitanKurja.id,
             }),
             data,
             {
@@ -83,38 +83,54 @@ export default function Feedback({
             <Card className="py-6 my-12">
                 <CardContent>
                     <div className="grid max-w-xl grid-cols-2 gap-y-6">
-                        <h2 className="font-semibold">Rencana Aksi</h2>
-                        <p>{rencanaAksi.rencana_aksi}</p>
+                        <h2 className="font-semibold">Kinerja</h2>
+                        <p>{dataKurja.kinerja}</p>
 
                         <h2 className="font-semibold">Target</h2>
-                        <p>{rencanaAksi.target}</p>
+                        <p>{dataKurja.indikator}</p>
 
                         <h2 className="font-semibold">Realisasi</h2>
-                        <p>{rencanaAksi.realisasi}</p>
+                        <p>{dataKurja.target}</p>
 
                         <h2 className="font-semibold">Capaian(%)</h2>
-                        <p>{rencanaAksi.capaian}</p>
+                        <p>{dataKurja.realisasi}</p>
 
                         <h2 className="font-semibold">Catatan Monev</h2>
-                        <p>{rencanaAksi.catatan}</p>
+                        <p>{dataKurja.capaian}</p>
 
                         <h2 className="font-semibold">Tindak Lanjut</h2>
-                        <p>{rencanaAksi.tindak_lanjut}</p>
+                        <p>{dataKurja.penjelasan}</p>
 
-                        <h2 className="font-semibold">Bukti Pendukung</h2>
-                        <a
-                            className="underline"
-                            href={rencanaAksi.bukti_pendukung}
-                            target="_blank"
-                        >
-                            Lihat
-                        </a>
+                        <h2 className="font-semibold">
+                            Alternatif/Upaya yang telah dilakukan
+                        </h2>
+                        <p>{dataKurja.alternatif}</p>
+                    </div>
+                </CardContent>
+            </Card>
+
+            <Card className="py-6 my-12">
+                <CardContent>
+                    <div className="grid max-w-xl grid-cols-2 gap-y-6">
+                        <h2 className="font-semibold">
+                            Nama Program/Kegiatan/Sub Kegiatan
+                        </h2>
+                        <p>{keterkaitanKurja.program}</p>
+
+                        <h2 className="font-semibold">Anggaran (Rp)</h2>
+                        <p>{keterkaitanKurja.anggaran}</p>
+
+                        <h2 className="font-semibold">Realisasi (Rp)</h2>
+                        <p>{keterkaitanKurja.realisasi_rupiah}</p>
+
+                        <h2 className="font-semibold">Realisasi (%)</h2>
+                        <p>{keterkaitanKurja.realisasi_persentase}</p>
 
                         <h2 className="font-semibold">Feedback</h2>
-                        <p>{rencanaAksi.feedback}</p>
+                        <p>{keterkaitanKurja.feedback}</p>
 
                         <h2 className="font-semibold">Feedback By</h2>
-                        <p>{rencanaAksi.feedbackBy?.name ?? "-"}</p>
+                        <p>{keterkaitanKurja.feedback_by?.name ?? "-"}</p>
                     </div>
                 </CardContent>
             </Card>

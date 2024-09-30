@@ -21,6 +21,7 @@ import { useToast } from "@/hooks/use-toast";
 
 type FeedbackProps = {
     tribulan: DataTribulan;
+    canFeedback: boolean;
 };
 
 const FormSchema = z.object({
@@ -28,8 +29,9 @@ const FormSchema = z.object({
     feedback: z.string().min(1, "Feedback harus diisi"),
 });
 
-export default function Feedback({ tribulan }: FeedbackProps) {
+export default function Feedback({ tribulan, canFeedback }: FeedbackProps) {
     const { toast } = useToast();
+
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
@@ -83,6 +85,9 @@ export default function Feedback({ tribulan }: FeedbackProps) {
                         <h2 className="font-semibold">Target</h2>
                         <p>{tribulan.target}</p>
 
+                        <h2 className="font-semibold">Dibuat oleh</h2>
+                        <p>{tribulan?.creator?.jabatan?.nama}</p>
+
                         <h2 className="font-semibold">Feedback</h2>
                         <p>{tribulan.feedback}</p>
 
@@ -94,35 +99,39 @@ export default function Feedback({ tribulan }: FeedbackProps) {
 
             <Card className="pt-6">
                 <CardContent>
-                    <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)}>
-                            <FormField
-                                control={form.control}
-                                name="feedback"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Feedback</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                placeholder="Masukkan feedback"
-                                                {...field}
-                                            />
-                                        </FormControl>
+                    {canFeedback ? (
+                        <Form {...form}>
+                            <form onSubmit={form.handleSubmit(onSubmit)}>
+                                <FormField
+                                    control={form.control}
+                                    name="feedback"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Feedback</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    placeholder="Masukkan feedback"
+                                                    {...field}
+                                                />
+                                            </FormControl>
 
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
 
-                            <Button
-                                type="submit"
-                                className="mt-6"
-                                disabled={form.formState.isSubmitting}
-                            >
-                                Submit
-                            </Button>
-                        </form>
-                    </Form>
+                                <Button
+                                    type="submit"
+                                    className="mt-6"
+                                    disabled={form.formState.isSubmitting}
+                                >
+                                    Submit
+                                </Button>
+                            </form>
+                        </Form>
+                    ) : (
+                        <div>Tidak dapat memberikan feedback</div>
+                    )}
                 </CardContent>
             </Card>
         </AuthenticatedLayout>

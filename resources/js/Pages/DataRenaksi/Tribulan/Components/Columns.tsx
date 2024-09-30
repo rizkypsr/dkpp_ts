@@ -31,6 +31,7 @@ export type DataTribulan = {
     data_laporan_renaksi_id: number;
     created_at: string;
     updated_at: string;
+    creator: User;
 };
 
 export const columns: ColumnDef<DataTribulan>[] = [

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataMasterPenilaianJabatan;
 use App\Models\KeterkaitanKurja;
+use App\Models\Kurja;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -13,7 +15,7 @@ class KeterkaitanKurjaController extends Controller
      */
     public function index($id)
     {
-        $dataKeterkaitanKurja = KeterkaitanKurja::where('data_laporan_kurja_id', $id)->paginate(10);
+        $dataKeterkaitanKurja = KeterkaitanKurja::with(['feedbackBy'])->where('data_laporan_kurja_id', $id)->paginate(10);
 
         return Inertia::render('DataKurja/KeterkaitanKurja/Index', [
             'kurjaId' => $id,
@@ -76,9 +78,24 @@ class KeterkaitanKurjaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $kurjaId, string $keterkaitanKurjaId)
     {
-        //
+        try {
+            $dataKurja = Kurja::findOrFail($kurjaId);
+            $keterkaitanKurja = KeterkaitanKurja::findOrFail($keterkaitanKurjaId);
+            $canFeedback = DataMasterPenilaianJabatan::canFeedback(auth()->user()->id, $keterkaitanKurja->creator->jabatan_id);
+
+            return Inertia::render('DataKurja/KeterkaitanKurja/Feedback', [
+                'dataKurja' => $dataKurja,
+                'keterkaitanKurja' => $keterkaitanKurja,
+                'canFeedback' => $canFeedback,
+            ]);
+
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors([
+                'error' => $e->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -87,10 +104,11 @@ class KeterkaitanKurjaController extends Controller
     public function update(Request $request, string $kurjaId, string $keterkaitanKurjaId)
     {
         $validated = $request->validate([
-            'program' => 'required|string|max:255',
-            'anggaran' => 'required|numeric',
-            'realisasi_rupiah' => 'required|numeric',
-            'realisasi_persentase' => 'required|numeric',
+            'program' => 'string|max:255',
+            'anggaran' => 'numeric',
+            'realisasi_rupiah' => 'numeric',
+            'realisasi_persentase' => 'numeric',
+            'feedback' => 'string',
         ], [
             'program.required' => 'Program harus diisi',
             'program.max' => 'Program maksimal 255 karakter',
@@ -100,6 +118,9 @@ class KeterkaitanKurjaController extends Controller
         ]);
 
         try {
+            if ($request->feedback) {
+                $validated['feedback_by'] = auth()->user()->id;
+            }
 
             $keterkaitanKurja = KeterkaitanKurja::find($keterkaitanKurjaId);
 

@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Wildside\Userstamps\Userstamps;
 
 class RencanaAksi extends Model
 {
-    use HasFactory;
+    use HasFactory, Userstamps;
 
     protected $table = 'rencana_aksi';
 

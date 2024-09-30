@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataMaster;
+use App\Models\DataMasterPenilaianJabatan;
 use App\Models\Tribulan;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -74,10 +76,12 @@ class TribulanController extends Controller
     public function show(string $renaksiId, string $tribulanId)
     {
         try {
-            $tribulan = Tribulan::findOrFail($tribulanId);
+            $tribulan = Tribulan::with(['creator', 'creator.jabatan'])->findOrFail($tribulanId);
+            $canFeedback = DataMasterPenilaianJabatan::canFeedback(auth()->user()->id, $tribulan->creator->jabatan_id);
 
             return Inertia::render('DataRenaksi/Tribulan/Feedback', [
                 'tribulan' => $tribulan,
+                'canFeedback' => $canFeedback,
             ]);
 
         } catch (\Exception $e) {

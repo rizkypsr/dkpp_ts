@@ -7,8 +7,9 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Link } from "@inertiajs/react";
 import { MoreHorizontal } from "lucide-react";
+import { User } from "@/types";
+import { Link } from "@inertiajs/react";
 
 export type DataKeterkaitanKurja = {
     id: number;
@@ -17,6 +18,8 @@ export type DataKeterkaitanKurja = {
     realisasi_rupiah: number;
     realisasi_persentase: number;
     data_laporan_kurja_id: number;
+    feedback: string;
+    feedback_by: User;
     created_at: string;
     updated_at: string;
 };
@@ -58,6 +61,26 @@ export const columns: ColumnDef<DataKeterkaitanKurja>[] = [
         header: "% REALISASI",
     },
     {
+        accessorKey: "feedback",
+        header: "Feedback",
+        cell: (info) => {
+            return (
+                <div className="w-24">{(info.getValue() as any) ?? "-"}</div>
+            );
+        },
+    },
+    {
+        accessorKey: "feedback_by",
+        header: "Feedback By",
+        cell: (info) => {
+            return (
+                <div className="w-24">
+                    {(info.getValue() as User)?.name ?? "-"}
+                </div>
+            );
+        },
+    },
+    {
         id: "actions",
         cell: ({
             getValue,
@@ -75,6 +98,20 @@ export const columns: ColumnDef<DataKeterkaitanKurja>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Aksi</DropdownMenuLabel>
+                        <DropdownMenuItem>
+                            <Link
+                                href={route(
+                                    "data-laporan-kurja.keterkaitan-kurja.edit",
+                                    {
+                                        data_laporan_kurja:
+                                            original.data_laporan_kurja_id,
+                                        keterkaitan_kurja: original.id,
+                                    }
+                                )}
+                            >
+                                Feedback
+                            </Link>
+                        </DropdownMenuItem>
                         <DropdownMenuItem
                             onClick={() => {
                                 table.options.meta?.updateData(original);

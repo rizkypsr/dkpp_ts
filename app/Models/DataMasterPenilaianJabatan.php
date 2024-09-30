@@ -16,6 +16,28 @@ class DataMasterPenilaianJabatan extends Model
         'data_master_id',
     ];
 
+    public static function canFeedback(string $userId, string $jabatanId) {
+
+        $dataMaster = DataMaster::where('users_id', $userId)->first();
+
+        if (!$dataMaster) {
+            return;
+        }
+
+        $penilaianKeJabatan = DataMasterPenilaianJabatan::where('data_master_id',  $dataMaster->id)->get();
+
+        $canFeedback = false;
+
+        foreach ($penilaianKeJabatan as $jabatan) {
+            if ($jabatan->penilaian_ke_jabatan == $jabatanId) {
+                $canFeedback = true;
+                break;
+            }
+        }
+
+        return $canFeedback;
+    }
+
     public function jabatan()
     {
         return $this->belongsTo(Jabatan::class, 'penilaian_ke_jabatan');

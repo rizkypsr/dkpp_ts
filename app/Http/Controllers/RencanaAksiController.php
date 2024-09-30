@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataMasterPenilaianJabatan;
 use App\Models\MonevRenaksi;
 use App\Models\RencanaAksi;
 use Illuminate\Http\Request;
@@ -103,10 +104,12 @@ class RencanaAksiController extends Controller
         try {
             $monevRenaksi = MonevRenaksi::findOrFail($monevRenaksiId);
             $rencanaAksi = RencanaAksi::findOrFail($rencanaAksiId);
+            $canFeedback = DataMasterPenilaianJabatan::canFeedback(auth()->user()->id, $rencanaAksi->creator->jabatan_id);
 
             return Inertia::render('DataMonevRenaksi/RencanaAksi/Feedback', [
                 'monevRenaksi' => $monevRenaksi,
                 'rencanaAksi' => $rencanaAksi,
+                'canFeedback' => $canFeedback,
             ]);
 
         } catch (\Exception $e) {
