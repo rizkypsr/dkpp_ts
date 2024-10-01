@@ -5,6 +5,7 @@ use App\Http\Controllers\DataRenaksiController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KeterkaitanKurjaController;
 use App\Http\Controllers\KurjaController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\MonevRenaksiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RencanaAksiController;
@@ -31,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('data-laporan-monev-renaksi.rencana-aksi', RencanaAksiController::class);
     Route::resource('data-laporan-kurja', KurjaController::class);
     Route::resource('data-laporan-kurja.keterkaitan-kurja', KeterkaitanKurjaController::class);
+    Route::resource('laporan', LaporanController::class);
 });
 
 require __DIR__.'/auth.php';

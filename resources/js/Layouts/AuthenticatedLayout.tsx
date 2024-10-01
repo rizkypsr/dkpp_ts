@@ -97,8 +97,10 @@ export default function Authenticated({
                                 Data Laporan Kurja
                             </Link>
                             <Link
-                                href="#"
-                                className="flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${isActivePath('dashboard') ? 'text-white' : ''}"
+                                href={route("laporan.index")}
+                                className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${
+                                    isActivePath("/laporan") ? "text-white" : ""
+                                }`}
                             >
                                 <File className="w-4 h-4" />
                                 Laporan
@@ -190,8 +192,12 @@ export default function Authenticated({
                                     Data Laporan Kurja
                                 </Link>
                                 <Link
-                                    href="#"
-                                    className="flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${isActivePath('dashboard') ? 'text-white' : ''}"
+                                    href={route("laporan.index")}
+                                    className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${
+                                        isActivePath("/laporan")
+                                            ? "text-white"
+                                            : ""
+                                    }`}
                                 >
                                     <File className="w-4 h-4" />
                                     Laporan
