@@ -85,6 +85,7 @@ class TribulanController extends Controller
             ]);
 
         } catch (\Exception $e) {
+            dd($e);
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);
