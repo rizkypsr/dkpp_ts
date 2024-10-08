@@ -11,41 +11,92 @@ const ACCEPTED_FILE_TYPES = [
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 ];
 
-export const FormSchema = z.object({
+export const defaultSchema = z.object({
+    isCreate: z.boolean(),
     id: z.number().optional(),
     user: z
-        .object({
-            value: z.number(),
-            label: z.string(),
-        })
+        .object(
+            {
+                value: z.number({
+                    required_error: "User harus dipilih",
+                }),
+                label: z.string({
+                    required_error: "User harus dipilih",
+                }),
+            },
+            {
+                required_error: "User harus dipilih",
+            }
+        )
         .refine((data) => data.value && data.label, {
             message: "User wajib dipilih",
             path: ["user"],
         }),
-    filename: z.string({
-        required_error: "Nama dokumen harus diisi",
-    }),
-    tanggal_dikirim: z.date(),
-    tanggal_diterima: z.date(),
-    file: z
-        .instanceof(FileList, {
-            message: "File wajib diisi",
+    filename: z
+        .string({
+            required_error: "Nama dokumen harus diisi",
         })
-        .optional()
-        .refine((file) => {
-            console.log(file);
+        .min(1, "Nama dokumen harus diisi"),
+    tanggal_diterima: z.date({
+        required_error: "Tanggal diterima harus dipilih",
+    }),
+});
 
-            if (!file || file.length === 0) {
+export const createSchema = z.object({
+    isCreate: z.literal(true),
+    tanggal_dikirim: z
+        .date({
+            required_error: "Tanggal dikirim harus dipilih",
+        })
+        .optional(),
+    file: z
+        .instanceof(File, { message: "File dokumen wajib dipilih" })
+        .refine((value) => value instanceof File || typeof value === "string", {
+            message: "File dokumen wajib dipilih",
+        })
+        .refine((file) => {
+            if (!file) {
                 return true;
             }
-
-            return file[0].size <= MAX_FILE_SIZE;
+            return file.size <= MAX_FILE_SIZE;
         }, "Ukuran file maksimal 5MB")
         .refine((file) => {
-            if (!file || file.length === 0) {
+            if (!file) {
                 return true;
             }
 
-            return ACCEPTED_FILE_TYPES.includes(file[0].type);
+            return ACCEPTED_FILE_TYPES.includes(file.type);
         }, "Tipe file tidak didukung"),
 });
+
+export const editSchema = z.object({
+    isCreate: z.literal(false),
+    tanggal_dikirim: z.date({
+        required_error: "Tanggal dikirim harus dipilih",
+    }),
+    file: z
+        .instanceof(File, { message: "File dokumen wajib dipilih" })
+        .refine((value) => value instanceof File || typeof value === "string", {
+            message: "File dokumen wajib dipilih",
+        })
+        .refine((file) => {
+            if (!file) {
+                return true;
+            }
+            return file.size <= MAX_FILE_SIZE;
+        }, "Ukuran file maksimal 5MB")
+        .refine((file) => {
+            if (!file) {
+                return true;
+            }
+
+            return ACCEPTED_FILE_TYPES.includes(file.type);
+        }, "Tipe file tidak didukung")
+        .optional(),
+});
+
+const discriminatedSchema = z.discriminatedUnion("isCreate", [
+    createSchema,
+    editSchema,
+]);
+export const FormSchema = z.intersection(discriminatedSchema, defaultSchema);

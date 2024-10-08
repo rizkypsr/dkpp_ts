@@ -1,5 +1,5 @@
 import { User } from "@/types";
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, RowData } from "@tanstack/react-table";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -10,12 +10,20 @@ import {
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
 
+declare module "@tanstack/react-table" {
+    interface TableMeta<TData extends RowData> {
+        canDownloadFile: boolean;
+    }
+}
+
 export type DataLaporan = {
     id: number;
     user: User;
     tanggal_dikirim: string;
     tanggal_diterima: string;
+    filename: string;
     file: string;
+    file_path: string;
     created_at: string;
     updated_at: string;
 };
@@ -42,7 +50,7 @@ export const columns: ColumnDef<DataLaporan>[] = [
         header: "NIP",
     },
     {
-        accessorKey: "user.jabatan.nama",
+        accessorFn: (row) => row.user?.jabatan?.nama ?? "-",
         header: "Jabatan",
     },
     {
@@ -58,20 +66,6 @@ export const columns: ColumnDef<DataLaporan>[] = [
         header: "Tanggal Diterima",
     },
     {
-        header: "Download",
-        cell: ({ row: { original } }) => {
-            return (
-                <a
-                    href={`/api/laporan/download/${original.id}`}
-                    target="_blank"
-                    className="text-blue-500 hover:underline"
-                >
-                    Download
-                </a>
-            );
-        },
-    },
-    {
         id: "actions",
         cell: ({ row: { original }, table }) => {
             return (
@@ -84,6 +78,13 @@ export const columns: ColumnDef<DataLaporan>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Aksi</DropdownMenuLabel>
+                        <DropdownMenuItem asChild>
+                            {table.options.meta?.canDownloadFile && (
+                                <a href={original.file_path} target="_blank">
+                                    Download
+                                </a>
+                            )}
+                        </DropdownMenuItem>
                         <DropdownMenuItem
                             onClick={(e) => {
                                 table.options.meta?.updateData(original);
