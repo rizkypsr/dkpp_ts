@@ -1,5 +1,5 @@
 import React from "react";
-import { InertiaFormProps, User } from "@/types";
+import { User } from "@/types";
 import {
     Dialog,
     DialogContent,
@@ -33,7 +33,6 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
-import { Label } from "@/components/ui/label";
 import { router } from "@inertiajs/react";
 import moment from "moment-timezone";
 
