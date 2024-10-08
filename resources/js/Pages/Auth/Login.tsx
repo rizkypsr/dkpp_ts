@@ -7,6 +7,23 @@ import PrimaryButton from "@/components/PrimaryButton";
 import TextInput from "@/components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+
+const images = [
+    "/images/1.jpg",
+    "/images/2.jpg",
+    "/images/3.jpg",
+    "/images/dkpp1.jpg",
+    "/images/dkpp2.jpg",
+    "/images/dkpp3.jpg",
+    "/images/dkpp4.jpg",
+    "/images/dkpp5.jpg",
+];
 
 export default function Login({
     status,
@@ -30,79 +47,195 @@ export default function Login({
     };
 
     return (
-        <GuestLayout>
-            <Head title="Log in" />
+        <div className="relative">
+            <Carousel
+                opts={{
+                    loop: true,
+                }}
+                className="w-full h-full"
+                plugins={[
+                    Autoplay({
+                        delay: 5000,
+                    }),
+                ]}
+            >
+                <CarouselContent className="h-screen">
+                    {images.map((link) => (
+                        <CarouselItem>
+                            <img
+                                src={link}
+                                alt="Image"
+                                className="object-cover w-full h-full"
+                            />
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+            </Carousel>
 
-            {status && (
-                <div className="mb-4 text-sm font-medium text-green-600">
-                    {status}
-                </div>
-            )}
+            <GuestLayout>
+                <Head title="Log in" />
 
-            <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="username" value="NIP" />
+                {status && (
+                    <div className="mb-4 text-sm font-medium text-green-600">
+                        {status}
+                    </div>
+                )}
 
-                    <TextInput
-                        id="username"
-                        type="text"
-                        name="username"
-                        value={data.username}
-                        className="block w-full mt-1"
-                        autoComplete="username"
-                        isFocused={true}
-                        onChange={(e) => setData("username", e.target.value)}
-                    />
+                <form onSubmit={submit}>
+                    <div>
+                        <InputLabel htmlFor="username" value="NIP" />
 
-                    <InputError message={errors.username} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="block w-full mt-1"
-                        autoComplete="current-password"
-                        onChange={(e) => setData("password", e.target.value)}
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="block mt-4">
-                    <label className="flex items-center">
-                        <Checkbox
-                            name="remember"
-                            checked={data.remember}
+                        <TextInput
+                            id="username"
+                            type="text"
+                            name="username"
+                            value={data.username}
+                            className="block w-full mt-1"
+                            autoComplete="username"
+                            isFocused={true}
                             onChange={(e) =>
-                                setData("remember", e.target.checked)
+                                setData("username", e.target.value)
                             }
                         />
-                        <span className="text-sm text-gray-600 ms-2">
-                            Remember me
-                        </span>
-                    </label>
-                </div>
 
-                <div className="flex items-center justify-end mt-4">
-                    {/* {canResetPassword && (
-                        <Link
-                            href={route("password.request")}
-                            className="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        >
-                            Forgot your password?
-                        </Link>
-                    )} */}
+                        <InputError
+                            message={errors.username}
+                            className="mt-2"
+                        />
+                    </div>
 
-                    <Button className="ms-4" disabled={processing}>
-                        Log in
-                    </Button>
+                    <div className="mt-4">
+                        <InputLabel htmlFor="password" value="Password" />
+
+                        <TextInput
+                            id="password"
+                            type="password"
+                            name="password"
+                            value={data.password}
+                            className="block w-full mt-1"
+                            autoComplete="current-password"
+                            onChange={(e) =>
+                                setData("password", e.target.value)
+                            }
+                        />
+
+                        <InputError
+                            message={errors.password}
+                            className="mt-2"
+                        />
+                    </div>
+
+                    <div className="block mt-4">
+                        <label className="flex items-center">
+                            <Checkbox
+                                name="remember"
+                                checked={data.remember}
+                                onChange={(e) =>
+                                    setData("remember", e.target.checked)
+                                }
+                            />
+                            <span className="text-sm text-gray-600 ms-2">
+                                Remember me
+                            </span>
+                        </label>
+                    </div>
+
+                    <div className="flex items-center justify-end mt-4">
+                        {/* {canResetPassword && (
+                <Link
+                    href={route("password.request")}
+                    className="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                    Forgot your password?
+                </Link>
+            )} */}
+
+                        <Button className="ms-4" disabled={processing}>
+                            Log in
+                        </Button>
+                    </div>
+                </form>
+            </GuestLayout>
+
+            <section className="py-16 my-40 bg-gray-300">
+                <div className="flex flex-col items-center max-w-sm mx-auto space-y-12 lg:max-w-5xl lg:flex-row lg:space-y-0 lg:space-x-12 md:max-w-xl xl:max-w-6xl">
+                    <div className="relative lg:w-[30%]">
+                        <div className="absolute bottom-0 left-0 right-0 h-64 bg-neutral-700 rounded-tr-xl rounded-b-3xl rounded-tl-[4rem] lg:w-[80%] mx-auto"></div>
+                        <img
+                            src="/images/opd.png"
+                            alt="OPD"
+                            className="relative z-10 mx-auto"
+                        />
+                    </div>
+
+                    <div className="md:w-[70%]">
+                        <h1 className="mb-4 text-3xl font-semibold text-center lg:text-left">
+                            Sambutan Pimpinan
+                        </h1>
+                        <p className="mb-6 text-lg text-justify">
+                            Assalammualaikum Wr. Wb. Puji Syukur kepada Allah
+                            SWT. yang telah melimpahkan Rahmat dan HidayahNya
+                            kepada kita semua. Sebuah kebanggan bagi Dinas
+                            Ketahanan Pangan dan Perikanan Kabupaten Jombang
+                            sebagai unsur pelaksana pemerintah di bidang
+                            Ketahanan Pangan dan Perikanan dapat memberikan
+                            informasi mengenai pelayanan publik yang
+                            diselenggarakan pada Bidang Ketahanan Pangan dan
+                            Perikanan melaui Website ini. Terima Kasih kepada
+                            semua pihak yang telah memberikan dukungan dalam
+                            membuat dan menyusun website ini. Semoga Website ini
+                            bisa memberikan manfaat yang sebesar-besarnya.
+                            Wassalamualaikum Wr.Wb.
+                        </p>
+                        <h2 className="text-lg font-semibold">
+                            N RD Nurkamalia, S.KM, MSi
+                        </h2>
+                        <h3 className="text-lg">Kepala OPD</h3>
+                    </div>
                 </div>
-            </form>
-        </GuestLayout>
+            </section>
+
+            <footer className="px-24 pt-24 text-white bg-[#21262c]">
+                <div className="flex items-center justify-center mb-20 space-x-6">
+                    <img src="/images/logo.png" alt="Logo" className="w-20" />
+                    <div className="text-xl font-medium">
+                        <p>Dinas Ketahanan Pangan dan Perikanan</p>
+                        <p>Kabupaten Jombang</p>
+                    </div>
+                </div>
+                <div className="flex flex-col items-center justify-between mb-20 space-y-10 xl:flex-row xl:space-y-0">
+                    <img
+                        src="https://dkpp.jombangkab.go.id/assets/main/img/LogoBerAKHLAK.png"
+                        alt="BerAKHLAK"
+                        className="w-64"
+                    />
+                    <img
+                        src="https://dkpp.jombangkab.go.id/assets/main/img/banggaMelayaniBangsas.png"
+                        alt="BerAKHLAK"
+                        className="w-80"
+                    />
+                    <img
+                        src="https://dkpp.jombangkab.go.id/assets/main/img/LOGOJOMBANGFEST2024.png"
+                        alt="LOGOJOMBANGFEST2024"
+                        className="w-44"
+                    />
+                    <img
+                        src="https://dkpp.jombangkab.go.id/assets/main/img/LOGOHARIJADIJOMBANGKE114.png"
+                        alt="LOGOHARIJADIJOMBANGKE114"
+                        className="w-44"
+                    />
+                    <img
+                        src="https://dkpp.jombangkab.go.id/assets/main/img/logo-branding.png"
+                        alt="LOGOHARIJADIJOMBANGKE114"
+                        className="w-64"
+                    />
+                </div>
+                <div className="container py-4 mx-auto text-center">
+                    <p className="mb-2 mb-lg-0">
+                        © 2024 KOMINFO JOMBANG. All rights reserved.
+                    </p>
+                </div>
+            </footer>
+        </div>
     );
 }

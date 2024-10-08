@@ -4,10 +4,12 @@ import { PropsWithChildren } from "react";
 
 export default function Guest({ children }: PropsWithChildren) {
     return (
-        <div className="flex flex-col items-center min-h-screen pt-6 bg-gray-100 sm:justify-center sm:pt-0">
+        <div className="absolute inset-0 flex flex-col items-center justify-center h-screen bg-black bg-opacity-10">
             <div>
                 <Link href="/">
-                    <h1 className="text-2xl font-semibold">DKPP Jombang</h1>
+                    <h1 className="text-2xl font-semibold text-white">
+                        DKPP Jombang
+                    </h1>
                 </Link>
             </div>
 
