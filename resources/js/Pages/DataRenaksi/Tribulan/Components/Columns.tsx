@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
@@ -12,15 +11,6 @@ import { Link } from "@inertiajs/react";
 import { ColumnDef, RowData } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 
-declare module "@tanstack/react-table" {
-    interface TableMeta<TData extends RowData> {
-        fromNumber: number;
-        toNumber: number;
-        // updateData: (data: DataRenaksi) => void;
-        // deleteData: (id: number) => void;
-    }
-}
-
 export type DataTribulan = {
     id: number;
     tribulan: number;
@@ -32,6 +22,7 @@ export type DataTribulan = {
     created_at: string;
     updated_at: string;
     creator: User;
+    can_feedback: boolean;
 };
 
 export const columns: ColumnDef<DataTribulan>[] = [
@@ -52,10 +43,6 @@ export const columns: ColumnDef<DataTribulan>[] = [
         },
     },
     {
-        accessorKey: "tribulan",
-        header: "Tribulan (Nanti akan dihapus)",
-    },
-    {
         accessorKey: "rencana_aksi",
         header: "Rencana Aksi",
         cell: (info) => {
@@ -65,6 +52,21 @@ export const columns: ColumnDef<DataTribulan>[] = [
     {
         accessorKey: "target",
         header: "Target",
+    },
+    {
+        accessorKey: "creator.jabatan.nama",
+        header: "Dibuat Oleh",
+        cell: ({ getValue, row: { original } }) => {
+            return (
+                <div
+                    className={`"w-24 ${
+                        original.can_feedback ? "text-green-600" : ""
+                    }`}
+                >
+                    {(getValue() as any) ?? "-"}
+                </div>
+            );
+        },
     },
     {
         accessorKey: "feedback",

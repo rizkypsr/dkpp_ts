@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormSchema } from "./Components/FormSchema";
-import { router, usePage } from "@inertiajs/react";
+import { router } from "@inertiajs/react";
 
 type IndexProps = {
     renaksiId: number;
@@ -28,7 +28,6 @@ export default function Index({
     tribulan4,
 }: IndexProps) {
     const { toast } = useToast();
-    const page = usePage();
 
     const [openFormModal, setOpenFormModal] = React.useState(false);
     const [openTribulan2Modal, setOpenTribulan2Modal] = React.useState(false);

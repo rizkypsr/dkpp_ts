@@ -15,10 +15,10 @@ class TribulanController extends Controller
      */
     public function index($id)
     {
-        $tribulan1 = Tribulan::with(['feedbackBy'])->where('data_laporan_renaksi_id', $id)->where('tribulan', 1)->paginate(5);
-        $tribulan2 = Tribulan::with(['feedbackBy'])->where('data_laporan_renaksi_id', $id)->where('tribulan', 2)->paginate(5);
-        $tribulan3 = Tribulan::with(['feedbackBy'])->where('data_laporan_renaksi_id', $id)->where('tribulan', 3)->paginate(5);
-        $tribulan4 = Tribulan::with(['feedbackBy'])->where('data_laporan_renaksi_id', $id)->where('tribulan', 4)->paginate(5);
+        $tribulan1 = Tribulan::with(['feedbackBy', 'creator', 'creator.jabatan'])->where('data_laporan_renaksi_id', $id)->where('tribulan', 1)->paginate(5);
+        $tribulan2 = Tribulan::with(['feedbackBy', 'creator', 'creator.jabatan'])->where('data_laporan_renaksi_id', $id)->where('tribulan', 2)->paginate(5);
+        $tribulan3 = Tribulan::with(['feedbackBy', 'creator', 'creator.jabatan'])->where('data_laporan_renaksi_id', $id)->where('tribulan', 3)->paginate(5);
+        $tribulan4 = Tribulan::with(['feedbackBy', 'creator', 'creator.jabatan'])->where('data_laporan_renaksi_id', $id)->where('tribulan', 4)->paginate(5);
 
         return Inertia::render('DataRenaksi/Tribulan/Index', [
             'renaksiId' => $id,
@@ -63,7 +63,6 @@ class TribulanController extends Controller
             return redirect()->back()->with('success', 'Data berhasil ditambahkan');
 
         } catch (\Exception $e) {
-            dd($e->getMessage());
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);
@@ -85,7 +84,6 @@ class TribulanController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            dd($e);
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);
@@ -120,18 +118,10 @@ class TribulanController extends Controller
             $tribulan = Tribulan::findOrFail($tribulanId);
             $tribulan->update($validated);
 
-            // if ($request->feedback) {
-            //     return redirect()->route('data-laporan-renaksi.tribulan.index', $renaksiId)
-            //         ->with('success', 'Berhasil memberikan feedback');
-            // }
-
-            // return redirect()->back()->with('success', 'Data berhasil diubah');
-
             return to_route('data-laporan-renaksi.tribulan.index', $renaksiId)
                 ->with('success', 'Data berhasil diubah');
 
         } catch (\Exception $e) {
-            dd($e);
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);
@@ -151,7 +141,6 @@ class TribulanController extends Controller
             return redirect()->back()->with('success', 'Data berhasil dihapus');
 
         } catch (\Exception $e) {
-            dd($e->getMessage());
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);
