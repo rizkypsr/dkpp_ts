@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\DataMasterPenilaianJabatan;
@@ -8,12 +10,11 @@ use App\Models\RencanaAksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Exception;
 
 class RencanaAksiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    /** Display a listing of the resource. */
     public function index(string $id)
     {
         $dataRencanaAksi = RencanaAksi::with(['feedbackBy'])->where('data_laporan_monev_renaksi_id', $id)->paginate(10);
@@ -24,17 +25,13 @@ class RencanaAksiController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    /** Show the form for creating a new resource. */
     public function create()
     {
-        //
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    /** Store a newly created resource in storage. */
     public function store(Request $request, string $id)
     {
         $validated = $request->validate([
@@ -44,7 +41,7 @@ class RencanaAksiController extends Controller
             'capaian' => 'required|numeric',
             'catatan' => 'required|string',
             'tindak_lanjut' => 'required|string',
-            'bukti_pendukung' => 'nullable|file|max:5120'
+            'bukti_pendukung' => 'nullable|file|max:5120',
         ], [
             'rencana_aksi.required' => 'Rencana aksi harus diisi',
             'rencana_aksi.max' => 'Rencana aksi maksimal 255 karakter',
@@ -81,24 +78,20 @@ class RencanaAksiController extends Controller
             ]);
 
             return to_route('data-laporan-monev-renaksi.rencana-aksi.index', $id)->with('success', 'Data berhasil ditambahkan');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
+    /** Display the specified resource. */
     public function show(string $id)
     {
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    /** Show the form for editing the specified resource. */
     public function edit(string $monevRenaksiId, string $rencanaAksiId)
     {
         try {
@@ -112,16 +105,14 @@ class RencanaAksiController extends Controller
                 'canFeedback' => $canFeedback,
             ]);
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    /** Update the specified resource in storage. */
     public function update(Request $request, string $monevRenaksiId, string $rencanaAksiId)
     {
         $validated = $request->validate([
@@ -173,18 +164,27 @@ class RencanaAksiController extends Controller
 
             return to_route('data-laporan-monev-renaksi.rencana-aksi.index', $monevRenaksiId)
                 ->with('success', 'Data berhasil ditambahkan');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    /** Remove the specified resource from storage. */
+    public function destroy(string $monevRenaksiId, string $rencanaAksiId)
     {
-        //
+        //TODO: Implement delete storage file
+        try {
+            $rencanaAksi = RencanaAksi::findOrFail($rencanaAksiId);
+
+            $rencanaAksi->destroy($rencanaAksiId);
+
+            return redirect()->back()->with('success', 'Data berhasil dihapus');
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors([
+                'error' => $e->getMessage(),
+            ]);
+        }
     }
 }

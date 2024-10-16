@@ -9,6 +9,7 @@ import { z } from "zod";
 import { FormSchema } from "./FormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Form from "./Form";
+import { router } from "@inertiajs/react";
 
 type IndexProps = {
     monevRenaksiId: number;
@@ -49,7 +50,36 @@ export default function Index({ monevRenaksiId, dataRencanaAksi }: IndexProps) {
     };
 
     const handleDelete = (id: number) => {
-        console.log("delete", id);
+        router.delete(route("data-laporan-monev-renaksi.rencana-aksi.destroy", {
+            data_laporan_monev_renaksi: monevRenaksiId,
+            rencana_aksi: id,
+        }), {
+            onBefore: () => {
+                if (!confirm("Apakah Anda yakin ingin menghapus data ini?")) {
+                    return false;
+                }
+            },
+            onSuccess: (page) => {
+                toast({
+                    title: page.props.flash.success,
+                });
+            },
+            onError: (errors) => {
+                if (errors.error) {
+                    toast({
+                        variant: "destructive",
+                        title: "Ups! Terjadi kesalahan",
+                        description: "Terjadi kesalahan saat menyimpan data",
+                    });
+                }
+
+                Object.keys(errors).forEach((key) => {
+                    form.setError(key as any, {
+                        message: errors[key],
+                    });
+                });
+            },
+        });
     };
 
     React.useEffect(() => {
