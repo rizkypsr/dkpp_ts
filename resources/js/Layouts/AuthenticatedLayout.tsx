@@ -44,8 +44,8 @@ export default function Authenticated({
                             <Link
                                 href={route("dashboard")}
                                 className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${isActivePath("/dashboard")
-                                        ? "text-white"
-                                        : ""
+                                    ? "text-white"
+                                    : ""
                                     }`}
                             >
                                 <Home className="w-4 h-4" />
@@ -54,8 +54,8 @@ export default function Authenticated({
                             <Link
                                 href={route("data-master.index")}
                                 className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${isActivePath("/data-master")
-                                        ? "text-white"
-                                        : ""
+                                    ? "text-white"
+                                    : ""
                                     }`}
                             >
                                 <Blocks className="w-4 h-4" />
@@ -75,8 +75,8 @@ export default function Authenticated({
                             <Link
                                 href={route("data-laporan-monev-renaksi.index")}
                                 className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${isActivePath("/data-laporan-monev-renaksi")
-                                        ? "text-white"
-                                        : ""
+                                    ? "text-white"
+                                    : ""
                                     }`}
                             >
                                 <BookText className="w-4 h-4" />
@@ -85,8 +85,8 @@ export default function Authenticated({
                             <Link
                                 href={route("data-laporan-kurja.index")}
                                 className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${isActivePath("/data-laporan-kurja")
-                                        ? "text-white"
-                                        : ""
+                                    ? "text-white"
+                                    : ""
                                     }`}
                             >
                                 <Dock className="w-4 h-4" />
@@ -130,8 +130,8 @@ export default function Authenticated({
                                 <Link
                                     href={route("dashboard")}
                                     className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${isActivePath("/dashboard")
-                                            ? "text-white"
-                                            : ""
+                                        ? "text-white"
+                                        : ""
                                         }`}
                                 >
                                     <Home className="w-4 h-4" />
@@ -140,8 +140,8 @@ export default function Authenticated({
                                 <Link
                                     href={route("data-master.index")}
                                     className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${isActivePath("/data-master")
-                                            ? "font-extrabold"
-                                            : ""
+                                        ? "font-extrabold"
+                                        : ""
                                         }`}
                                 >
                                     <Blocks className="w-4 h-4" />
@@ -165,8 +165,8 @@ export default function Authenticated({
                                     className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${isActivePath(
                                         "/data-laporan-monev-renaksi"
                                     )
-                                            ? "text-white"
-                                            : ""
+                                        ? "text-white"
+                                        : ""
                                         }`}
                                 >
                                     <BookText className="w-4 h-4" />
@@ -175,8 +175,8 @@ export default function Authenticated({
                                 <Link
                                     href={route("data-laporan-kurja.index")}
                                     className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${isActivePath("/data-laporan-kurja")
-                                            ? "text-white"
-                                            : ""
+                                        ? "text-white"
+                                        : ""
                                         }`}
                                 >
                                     <Dock className="w-4 h-4" />
@@ -185,8 +185,8 @@ export default function Authenticated({
                                 <Link
                                     href={route("laporan.index")}
                                     className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${isActivePath("/laporan")
-                                            ? "text-white"
-                                            : ""
+                                        ? "text-white"
+                                        : ""
                                         }`}
                                 >
                                     <File className="w-4 h-4" />
@@ -218,9 +218,10 @@ export default function Authenticated({
                                     My Account
                                 </DropdownMenuLabel>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem>
+                                <DropdownMenuItem asChild>
                                     <Link
                                         href={route("logout")}
+                                        className="w-full cursor-pointer"
                                         method="post"
                                         as="button"
                                         replace={true}
