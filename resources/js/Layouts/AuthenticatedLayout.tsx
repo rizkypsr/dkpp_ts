@@ -43,27 +43,25 @@ export default function Authenticated({
                         <nav className="grid items-start px-2 text-sm font-medium lg:px-4 gap-y-3">
                             <Link
                                 href={route("dashboard")}
-                                className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${
-                                    isActivePath("/dashboard")
+                                className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${isActivePath("/dashboard")
                                         ? "text-white"
                                         : ""
-                                }`}
+                                    }`}
                             >
                                 <Home className="w-4 h-4" />
                                 Dashboard
                             </Link>
                             <Link
                                 href={route("data-master.index")}
-                                className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${
-                                    isActivePath("/data-master")
+                                className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${isActivePath("/data-master")
                                         ? "text-white"
                                         : ""
-                                }`}
+                                    }`}
                             >
                                 <Blocks className="w-4 h-4" />
                                 Data Master
                             </Link>
-                            <Link
+                            {/* <Link
                                 href={route("data-laporan-renaksi.index")}
                                 className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${
                                     isActivePath("/data-laporan-renaksi")
@@ -73,34 +71,31 @@ export default function Authenticated({
                             >
                                 <Bolt className="w-4 h-4" />
                                 Data Laporan Renaksi
-                            </Link>
+                            </Link> */}
                             <Link
                                 href={route("data-laporan-monev-renaksi.index")}
-                                className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${
-                                    isActivePath("/data-laporan-monev-renaksi")
+                                className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${isActivePath("/data-laporan-monev-renaksi")
                                         ? "text-white"
                                         : ""
-                                }`}
+                                    }`}
                             >
                                 <BookText className="w-4 h-4" />
                                 Data Laporan Monev Renaksi
                             </Link>
                             <Link
                                 href={route("data-laporan-kurja.index")}
-                                className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${
-                                    isActivePath("/data-laporan-kurja")
+                                className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${isActivePath("/data-laporan-kurja")
                                         ? "text-white"
                                         : ""
-                                }`}
+                                    }`}
                             >
                                 <Dock className="w-4 h-4" />
                                 Data Laporan Kurja
                             </Link>
                             <Link
                                 href={route("laporan.index")}
-                                className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${
-                                    isActivePath("/laporan") ? "text-white" : ""
-                                }`}
+                                className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${isActivePath("/laporan") ? "text-white" : ""
+                                    }`}
                             >
                                 <File className="w-4 h-4" />
                                 Laporan
@@ -134,27 +129,25 @@ export default function Authenticated({
                             <nav className="grid gap-6 px-2 text-sm font-medium lg:px-4">
                                 <Link
                                     href={route("dashboard")}
-                                    className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${
-                                        isActivePath("/dashboard")
+                                    className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${isActivePath("/dashboard")
                                             ? "text-white"
                                             : ""
-                                    }`}
+                                        }`}
                                 >
                                     <Home className="w-4 h-4" />
                                     Dashboard
                                 </Link>
                                 <Link
                                     href={route("data-master.index")}
-                                    className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${
-                                        isActivePath("/data-master")
+                                    className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${isActivePath("/data-master")
                                             ? "font-extrabold"
                                             : ""
-                                    }`}
+                                        }`}
                                 >
                                     <Blocks className="w-4 h-4" />
                                     Data Master
                                 </Link>
-                                <Link
+                                {/* <Link
                                     href={route("data-laporan-renaksi.index")}
                                     className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${
                                         isActivePath("/data-laporan-renaksi")
@@ -164,40 +157,37 @@ export default function Authenticated({
                                 >
                                     <Bolt className="w-4 h-4" />
                                     Data Laporan Renaksi
-                                </Link>
+                                </Link> */}
                                 <Link
                                     href={route(
                                         "data-laporan-monev-renaksi.index"
                                     )}
-                                    className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${
-                                        isActivePath(
-                                            "/data-laporan-monev-renaksi"
-                                        )
+                                    className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${isActivePath(
+                                        "/data-laporan-monev-renaksi"
+                                    )
                                             ? "text-white"
                                             : ""
-                                    }`}
+                                        }`}
                                 >
                                     <BookText className="w-4 h-4" />
                                     Data Laporan Monev Renaksi
                                 </Link>
                                 <Link
                                     href={route("data-laporan-kurja.index")}
-                                    className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${
-                                        isActivePath("/data-laporan-kurja")
+                                    className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${isActivePath("/data-laporan-kurja")
                                             ? "text-white"
                                             : ""
-                                    }`}
+                                        }`}
                                 >
                                     <Dock className="w-4 h-4" />
                                     Data Laporan Kurja
                                 </Link>
                                 <Link
                                     href={route("laporan.index")}
-                                    className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${
-                                        isActivePath("/laporan")
+                                    className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${isActivePath("/laporan")
                                             ? "text-white"
                                             : ""
-                                    }`}
+                                        }`}
                                 >
                                     <File className="w-4 h-4" />
                                     Laporan
