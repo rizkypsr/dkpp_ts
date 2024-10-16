@@ -1,4 +1,4 @@
-import { FormEventHandler } from "react";
+import { FormEventHandler, useState } from "react";
 import Checkbox from "@/components/Checkbox";
 import GuestLayout from "@/Layouts/GuestLayout";
 import InputError from "@/components/InputError";
@@ -13,6 +13,7 @@ import {
     CarouselItem,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import { Eye, EyeIcon, EyeOff } from "lucide-react";
 
 const images = [
     "/images/1.jpg",
@@ -32,6 +33,8 @@ export default function Login({
     status?: string;
     canResetPassword: boolean;
 }) {
+    const [showPassword, setShowPassword] = useState(false);
+
     const { data, setData, post, processing, errors, reset } = useForm({
         username: "",
         password: "",
@@ -107,17 +110,24 @@ export default function Login({
                     <div className="mt-4">
                         <InputLabel htmlFor="password" value="Password" />
 
-                        <TextInput
-                            id="password"
-                            type="password"
-                            name="password"
-                            value={data.password}
-                            className="block w-full mt-1"
-                            autoComplete="current-password"
-                            onChange={(e) =>
-                                setData("password", e.target.value)
-                            }
-                        />
+                        <div className="relative">
+                            <TextInput
+                                id="password"
+                                type={showPassword ? "text" : "password"}
+                                name="password"
+                                value={data.password}
+                                className="block w-full mt-1"
+                                autoComplete="current-password"
+                                onChange={(e) =>
+                                    setData("password", e.target.value)
+                                }
+                            />
+                            <button type="button" className="absolute right-3 top-0 bottom-0" onClick={() => setShowPassword((prev) => !prev)}>
+                                {
+                                    showPassword ? <EyeOff size={24} /> : <Eye size={24} />
+                                }
+                            </button>
+                        </div>
 
                         <InputError
                             message={errors.password}
