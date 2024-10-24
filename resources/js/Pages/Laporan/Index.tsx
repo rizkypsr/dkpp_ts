@@ -29,15 +29,15 @@ export default function Index({
 
     const [openFormModal, setOpenFormModal] = React.useState(false);
 
-    const form = useForm<z.infer<typeof FormSchema>>({
-        resolver: zodResolver(FormSchema),
-        defaultValues: {
-            isCreate: true,
-            id: undefined,
-            user: undefined,
-            filename: "",
-        },
-    });
+        const form = useForm<z.infer<typeof FormSchema>>({
+            resolver: zodResolver(FormSchema),
+            defaultValues: {
+                isCreate: true,
+                id: undefined,
+                user: undefined,
+                filename: "",
+            },
+        });
 
     React.useEffect(() => {
         if (!openFormModal) {

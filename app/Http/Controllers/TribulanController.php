@@ -1,18 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\Models\DataMaster;
 use App\Models\DataMasterPenilaianJabatan;
 use App\Models\Tribulan;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Exception;
 
 class TribulanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    /** Display a listing of the resource. */
     public function index($id)
     {
         $tribulan1 = Tribulan::with(['feedbackBy', 'creator', 'creator.jabatan'])->where('data_laporan_renaksi_id', $id)->where('tribulan', 1)->paginate(5);
@@ -29,17 +29,13 @@ class TribulanController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    /** Show the form for creating a new resource. */
     public function create()
     {
-        //
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    /** Store a newly created resource in storage. */
     public function store(Request $request, string $id)
     {
         $validated = $request->validate([
@@ -62,16 +58,14 @@ class TribulanController extends Controller
 
             return redirect()->back()->with('success', 'Data berhasil ditambahkan');
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
+    /** Display the specified resource. */
     public function show(string $renaksiId, string $tribulanId)
     {
         try {
@@ -83,24 +77,20 @@ class TribulanController extends Controller
                 'canFeedback' => $canFeedback,
             ]);
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    /** Show the form for editing the specified resource. */
     public function edit(string $id)
     {
-        //
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    /** Update the specified resource in storage. */
     public function update(Request $request, string $renaksiId, string $tribulanId)
     {
         $validated = $request->validate([
@@ -121,16 +111,14 @@ class TribulanController extends Controller
             return to_route('data-laporan-renaksi.tribulan.index', $renaksiId)
                 ->with('success', 'Data berhasil diubah');
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    /** Remove the specified resource from storage. */
     public function destroy(string $renaksiId, string $id)
     {
         try {
@@ -140,7 +128,7 @@ class TribulanController extends Controller
 
             return redirect()->back()->with('success', 'Data berhasil dihapus');
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);

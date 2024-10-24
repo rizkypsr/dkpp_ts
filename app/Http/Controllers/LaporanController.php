@@ -1,19 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Laporan;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Exception;
 
 class LaporanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    /** Display a listing of the resource. */
     public function index()
     {
         $dataLaporan = Laporan::with('user', 'user.jabatan')->paginate(10);
@@ -21,7 +21,7 @@ class LaporanController extends Controller
         $users = User::with(['jabatan'])->get()->map(function ($user) {
             return [
                 'value' => $user->id,
-                'label' => $user->name . " - " . $user->jabatan->nama,
+                'label' => $user->name . ' - ' . $user->jabatan->nama,
             ];
         });
 
@@ -37,21 +37,17 @@ class LaporanController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    /** Show the form for creating a new resource. */
     public function create()
     {
-        //
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    /** Store a newly created resource in storage. */
     public function store(Request $request)
     {
 
-        $validated =  $request->validate([
+        $validated = $request->validate([
             'user' => 'required',
             'filename' => 'required|string|max:255',
             'tanggal_diterima' => 'required|date',
@@ -86,35 +82,29 @@ class LaporanController extends Controller
             ]);
 
             return to_route('laporan.index')->with('success', 'Data berhasil ditambahkan');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
+    /** Display the specified resource. */
     public function show(string $id)
     {
-        //
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    /** Show the form for editing the specified resource. */
     public function edit(string $id)
     {
-        //
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    /** Update the specified resource in storage. */
     public function update(Request $request, string $id)
     {
-        $validated =  $request->validate([
+        $validated = $request->validate([
             'user' => 'required',
             'filename' => 'required|string|max:255',
             'tanggal_dikirim' => 'required|date',
@@ -151,7 +141,7 @@ class LaporanController extends Controller
                 }
             }
 
-            $filePath = $filePath ?? $laporan->file;
+            $filePath ??= $laporan->file;
 
             $laporan->update([
                 'user_id' => $validated['user']['value'],
@@ -162,17 +152,16 @@ class LaporanController extends Controller
             ]);
 
             return to_route('laporan.index')->with('success', 'Data berhasil diubah');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             dd($e);
+
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    /** Remove the specified resource from storage. */
     public function destroy(string $id)
     {
         try {
@@ -183,7 +172,7 @@ class LaporanController extends Controller
             $laporan->delete();
 
             return redirect()->back()->with('success', 'Data berhasil dihapus');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);

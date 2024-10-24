@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\DataMaster;
@@ -9,12 +11,11 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Exception;
 
 class DataMasterController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    /** Display a listing of the resource. */
     public function index()
     {
         $dataMaster = DataMaster::with(['users.jabatan', 'penilaianJabatan.jabatan'])->paginate(10);
@@ -32,17 +33,13 @@ class DataMasterController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    /** Show the form for creating a new resource. */
     public function create()
     {
-        //
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    /** Store a newly created resource in storage. */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -82,7 +79,7 @@ class DataMasterController extends Controller
             $dataMaster = DataMaster::create([
                 'users_id' => $user->id,
                 'feedback' => $request->feedback ? 1 : 0,
-                'feedback_by' => $request->feedback ?  auth()->user()->id : null,
+                'feedback_by' => $request->feedback ? auth()->user()->id : null,
             ]);
 
             if ($request->penilaianKeJabatan) {
@@ -96,32 +93,27 @@ class DataMasterController extends Controller
 
             return redirect()->back()->with('success', 'Data berhasil disimpan');
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             dd($e->getMessage());
+
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
+    /** Display the specified resource. */
     public function show(string $id)
     {
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    /** Show the form for editing the specified resource. */
     public function edit(string $id)
     {
-        //
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    /** Update the specified resource in storage. */
     public function update(Request $request, string $id)
     {
         $dataMaster = DataMaster::findOrFail($id);
@@ -173,7 +165,7 @@ class DataMasterController extends Controller
             $dataMaster->update([
                 'users_id' => $user->id,
                 'feedback' => $validated['feedback'] ? 1 : 0,
-                'feedback_by' => $validated['feedback'] ?  auth()->user()->id : $dataMaster->feedback_by,
+                'feedback_by' => $validated['feedback'] ? auth()->user()->id : $dataMaster->feedback_by,
             ]);
 
             foreach ($penilaianKeJabatan as $penilaian) {
@@ -183,7 +175,7 @@ class DataMasterController extends Controller
             if ($request->penilaianKeJabatan) {
                 foreach ($validated['penilaianKeJabatan'] as $penilaian) {
                     DataMasterPenilaianJabatan::create([
-                        'penilaian_ke_jabatan' =>  $penilaian['value'],
+                        'penilaian_ke_jabatan' => $penilaian['value'],
                         'data_master_id' => $dataMaster->id,
                     ]);
                 }
@@ -191,17 +183,16 @@ class DataMasterController extends Controller
 
             return redirect()->back()->with('success', 'Data berhasil diubah');
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             dd($e->getMessage());
+
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    /** Remove the specified resource from storage. */
     public function destroy(string $id)
     {
         try {
@@ -215,7 +206,7 @@ class DataMasterController extends Controller
 
             return redirect()->back()->with('success', 'Data berhasil dihapus');
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);

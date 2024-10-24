@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -9,7 +11,8 @@ use Wildside\Userstamps\Userstamps;
 
 class RencanaAksi extends Model
 {
-    use HasFactory, Userstamps;
+    use HasFactory;
+    use Userstamps;
 
     protected $table = 'rencana_aksi';
 
@@ -26,14 +29,15 @@ class RencanaAksi extends Model
         'data_laporan_monev_renaksi_id',
     ];
 
-    public function buktiPendukung(): Attribute {
+    public function buktiPendukung(): Attribute
+    {
         return Attribute::make(
             get: fn (?string $value) => $value ? asset('storage/' . $value) : $value,
         );
     }
 
-
-    public function feedbackBy() {
+    public function feedbackBy()
+    {
         return $this->belongsTo(User::class, 'feedback_by');
     }
 }

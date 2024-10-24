@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,19 +11,21 @@ class DataMaster extends Model
 {
     use HasFactory;
 
-    protected $table = "data_master";
+    protected $table = 'data_master';
 
     protected $fillable = [
         'users_id',
         'feedback',
-        'feedback_by'
+        'feedback_by',
     ];
 
-    public function users() {
+    public function users()
+    {
         return $this->belongsTo(User::class, 'users_id');
     }
 
-    public function feedbackBy() {
+    public function feedbackBy()
+    {
         return $this->belongsTo(User::class, 'feedback_by');
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,11 +18,12 @@ class DataMasterPenilaianJabatan extends Model
         'data_master_id',
     ];
 
-    public static function canFeedback(string $userId, string $jabatanId) {
+    public static function canFeedback(string $userId, string $jabatanId)
+    {
 
         $dataMaster = DataMaster::where('users_id', $userId)->first();
 
-        if (!$dataMaster) {
+        if ( ! $dataMaster) {
             return;
         }
 
@@ -31,6 +34,7 @@ class DataMasterPenilaianJabatan extends Model
         foreach ($penilaianKeJabatan as $jabatan) {
             if ($jabatan->penilaian_ke_jabatan == $jabatanId) {
                 $canFeedback = true;
+
                 break;
             }
         }

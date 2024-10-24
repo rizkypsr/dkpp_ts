@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,7 +10,8 @@ use Wildside\Userstamps\Userstamps;
 
 class KeterkaitanKurja extends Model
 {
-    use HasFactory, Userstamps;
+    use HasFactory;
+    use Userstamps;
 
     protected $table = 'keterkaitan_kurja';
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,4 +17,9 @@ class Renaksi extends Model
         'kinerja',
         'indikator',
     ];
+
+    public function tribulan()
+    {
+        return $this->hasMany(Tribulan::class, 'data_laporan_renaksi_id');
+    }
 }

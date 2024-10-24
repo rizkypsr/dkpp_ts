@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Jabatan;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Exception;
 
 class JabatanController extends Controller
 {
@@ -20,7 +23,7 @@ class JabatanController extends Controller
             Role::create(['name' => $jabatan->nama]);
 
             return redirect()->back();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->with('error', 'Jabatan gagal ditambahkan');
         }
     }

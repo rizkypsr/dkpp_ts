@@ -1,16 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\MonevRenaksi;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Exception;
 
 class MonevRenaksiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    /** Display a listing of the resource. */
     public function index()
     {
         $dataMonevRenaksi = MonevRenaksi::paginate(10);
@@ -20,17 +21,13 @@ class MonevRenaksiController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    /** Show the form for creating a new resource. */
     public function create()
     {
-        //
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    /** Store a newly created resource in storage. */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -45,32 +42,26 @@ class MonevRenaksiController extends Controller
             MonevRenaksi::create($validated);
 
             return to_route('data-laporan-monev-renaksi.index')->with('success', 'Data berhasil ditambahkan');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
+    /** Display the specified resource. */
     public function show(string $id)
     {
-        //
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    /** Show the form for editing the specified resource. */
     public function edit(string $id)
     {
-        //
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    /** Update the specified resource in storage. */
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
@@ -87,16 +78,14 @@ class MonevRenaksiController extends Controller
             $monevRenaksi->update($validated);
 
             return to_route('data-laporan-monev-renaksi.index')->with('success', 'Data berhasil diubah');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    /** Remove the specified resource from storage. */
     public function destroy(string $id)
     {
         try {
@@ -105,7 +94,7 @@ class MonevRenaksiController extends Controller
             $monevRenaksi->destroy($id);
 
             return to_route('data-laporan-monev-renaksi.index')->with('success', 'Data berhasil diubah');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);

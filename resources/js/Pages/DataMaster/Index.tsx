@@ -3,13 +3,13 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Form from "./Form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useModeStore } from "@/store/useModeStore";
 import { FormSchema, ValidatorSchema } from "./FormSchema";
 import { router } from "@inertiajs/react";
 import { useToast } from "@/hooks/use-toast";
 import { columns, DataMaster } from "./Components/Columns";
 import { DataTable } from "@/components/ui/data-table";
 import { Jabatan } from "@/types";
+import { z } from "zod";
 
 type IndexProps = {
     dataMaster: any;
@@ -28,6 +28,7 @@ export default function Index({ dataMaster, jabatanOptions }: IndexProps) {
             nip: "",
             name: "",
             password: "",
+            confirmPassword: "",
             feedback: false,
             jabatan: undefined,
         },

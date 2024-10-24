@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -27,7 +29,8 @@ class Laporan extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function filePath(): Attribute {
+    public function filePath(): Attribute
+    {
         return Attribute::make(
             get: fn () => asset('storage/' . $this->file),
         );

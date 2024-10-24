@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,4 +22,9 @@ class Kurja extends Model
         'penjelasan',
         'alternatif',
     ];
+
+    public function keterkaitanKurja()
+    {
+        return $this->hasMany(KeterkaitanKurja::class, 'data_laporan_kurja_id');
+    }
 }

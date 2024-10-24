@@ -1,36 +1,33 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Kurja;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Exception;
 
 class KurjaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    /** Display a listing of the resource. */
     public function index()
     {
         $dataKurja = Kurja::paginate(10);
 
         return Inertia::render('DataKurja/Index', [
-            'dataKurja' => $dataKurja
+            'dataKurja' => $dataKurja,
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    /** Show the form for creating a new resource. */
     public function create()
     {
-        //
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    /** Store a newly created resource in storage. */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -59,33 +56,28 @@ class KurjaController extends Controller
             Kurja::create($validated);
 
             return to_route('data-laporan-kurja.index')->with('success', 'Data berhasil ditambahkan');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             dd($e);
+
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
+    /** Display the specified resource. */
     public function show(string $id)
     {
-        //
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    /** Show the form for editing the specified resource. */
     public function edit(string $id)
     {
-        //
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    /** Update the specified resource in storage. */
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
@@ -117,17 +109,16 @@ class KurjaController extends Controller
             $kurja->update($validated);
 
             return to_route('data-laporan-kurja.index')->with('success', 'Data berhasil diubah');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             dd($e);
+
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    /** Remove the specified resource from storage. */
     public function destroy(string $id)
     {
         try {
@@ -136,7 +127,7 @@ class KurjaController extends Controller
             $kurja->destroy($id);
 
             return to_route('data-laporan-kurja.index')->with('success', 'Data berhasil diubah');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->withErrors([
                 'error' => $e->getMessage(),
             ]);

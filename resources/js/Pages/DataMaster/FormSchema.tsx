@@ -39,10 +39,17 @@ export const defaultSchema = z.object({
         .optional(),
 });
 
+// Create and Edit schemas without `superRefine` initially
 export const createSchema = z.object({
     isCreate: z.literal(true),
     password: z
         .string()
+        .min(8, { message: "Password harus lebih dari 8 karakter" })
+        .max(255, { message: "Password harus kurang dari 255 karakter" }),
+    confirmPassword: z
+        .string({
+            required_error: "Konfirmasi Password wajib diisi",
+        })
         .min(8, { message: "Password harus lebih dari 8 karakter" })
         .max(255, { message: "Password harus kurang dari 255 karakter" }),
 });
@@ -50,10 +57,27 @@ export const createSchema = z.object({
 export const editSchema = z.object({
     isCreate: z.literal(false),
     password: z.string().optional(),
+    confirmPassword: z
+        .string()
+        .min(8, { message: "Password harus lebih dari 8 karakter" })
+        .max(255, { message: "Password harus kurang dari 255 karakter" }).optional(),
 });
 
+// Apply discriminated union without refinement first
 const formSchema = z.discriminatedUnion("isCreate", [createSchema, editSchema]);
 
-export const ValidatorSchema = z.intersection(formSchema, defaultSchema);
+// Apply intersection between the discriminated union and the default schema
+const intersectedSchema = z.intersection(formSchema, defaultSchema);
+
+// Apply `superRefine` after the intersection
+export const ValidatorSchema = intersectedSchema.superRefine((val, ctx) => {
+    if (val.isCreate && val.password !== val.confirmPassword) {
+        ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: 'Password dan Konfirmasi Password tidak sama',
+            path: ['confirmPassword'],
+        });
+    }
+});
 
 export type FormSchema = z.infer<typeof ValidatorSchema>;

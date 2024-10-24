@@ -101,8 +101,8 @@ export default function Authenticated({
                                 Laporan
                             </Link>
                             <Link
-                                href="#"
-                                className="flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${isActivePath('dashboard') ? 'text-white' : ''}"
+                                href={route("cetak-laporan.index")}
+                                className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${isActivePath('/cetak-laporan') ? 'text-white' : ''}`}
                             >
                                 <Printer className="w-4 h-4" />
                                 Cetak Laporan
@@ -193,8 +193,8 @@ export default function Authenticated({
                                     Laporan
                                 </Link>
                                 <Link
-                                    href="#"
-                                    className="flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${isActivePath('dashboard') ? 'text-white' : ''}"
+                                    href={route("cetak-laporan.index")}
+                                    className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${isActivePath('/cetak-laporan') ? 'text-white' : ''}`}
                                 >
                                     <Printer className="w-4 h-4" />
                                     Cetak Laporan
