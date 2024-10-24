@@ -22,27 +22,27 @@
         <tr>
             <th>1</th>
             <th>Nama:</th>
-            <th>NURKAMALIA,SKM,M.Si</th>
+            <th>{{ $nama_kepala_dinas }}</th>
         </tr>
         <tr>
             <th>2</th>
             <th>NIP:</th>
-            <th>'196501011986032036</th>
+            <th>'{{ $nip_kepala_dinas }}</th>
         </tr>
         <tr>
             <th>3</th>
             <th>PANGKAT/GOL. RUANG:</th>
-            <th>Pembina Tk. I/IV-b</th>
+            <th>{{ $pangkat_kepala_dinas }}</th>
         </tr>
         <tr>
             <th>4</th>
             <th>JABATAN:</th>
-            <th>Kepala Dinas</th>
+            <th>{{ $jabatan_kepala_dinas }}</th>
         </tr>
         <tr>
             <th>5</th>
             <th>UNIT KERJA:</th>
-            <th>Dinas Ketahanan Pangan dan Perikanan</th>
+            <th>{{ $unit_kerja_kepala_dinas }}</th>
         </tr>
         <tr>
             <th></th>
@@ -149,7 +149,9 @@
             <td></td>
             <td></td>
             <td></td>
-            <td align="center" colspan="2">Jombang, 28 Maret 2024</td>
+            <td align="center" colspan="2">Jombang,
+                {{ \Carbon\Carbon::parse($updated_at)->translatedFormat('d F Y') }}
+            </td>
         </tr>
 
         <tr>
@@ -177,7 +179,7 @@
             <td></td>
             <td></td>
             <td></td>
-            <td align="center" colspan="2">NURKAMALIA,SKM,M.Si</td>
+            <td align="center" colspan="2">{{ $nama_kepala_dinas }}</td>
         </tr>
         <tr>
             <td align="center"></td>
@@ -191,7 +193,7 @@
             <td></td>
             <td></td>
             <td></td>
-            <td align="center" colspan="2">NIP.</td>
+            <td align="center" colspan="2">NIP.{{ $nip_kepala_dinas }}</td>
         </tr>
     </tbody>
 </table>

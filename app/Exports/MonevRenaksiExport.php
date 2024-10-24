@@ -65,6 +65,12 @@ class MonevSheet implements FromView, ShouldAutoSize, WithStyles, WithColumnWidt
             'monevRenaksi' => $monevRenaksi,
             'name' => $this->requestData['name'],
             'nip' => $this->requestData['nip'],
+            'nip_kepala_dinas' => $this->requestData['nip_kepala_dinas'],
+            'nama_kepala_dinas' => $this->requestData['nama_kepala_dinas'],
+            'pangkat_kepala_dinas' => $this->requestData['pangkat_kepala_dinas'],
+            'jabatan_kepala_dinas' => $this->requestData['jabatan_kepala_dinas'],
+            'unit_kerja_kepala_dinas' => $this->requestData['unit_kerja_kepala_dinas'],
+            'updated_at' => $this->requestData['updated_at'],
         ]);
     }
 
@@ -116,6 +122,12 @@ class KurjaSheet implements FromView, ShouldAutoSize, WithStyles, WithColumnWidt
             'kurja' => $kurja,
             'name' => $this->requestData['name'],
             'nip' => $this->requestData['nip'],
+            'nip_kepala_dinas' => $this->requestData['nip_kepala_dinas'],
+            'nama_kepala_dinas' => $this->requestData['nama_kepala_dinas'],
+            'pangkat_kepala_dinas' => $this->requestData['pangkat_kepala_dinas'],
+            'jabatan_kepala_dinas' => $this->requestData['jabatan_kepala_dinas'],
+            'unit_kerja_kepala_dinas' => $this->requestData['unit_kerja_kepala_dinas'],
+            'updated_at' => $this->requestData['updated_at'],
         ]);
     }
 

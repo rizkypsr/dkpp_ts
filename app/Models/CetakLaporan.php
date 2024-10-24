@@ -16,5 +16,10 @@ class CetakLaporan extends Model
     protected $fillable = [
         'nip',
         'name',
+        'nama_kepala_dinas',
+        'nip_kepala_dinas',
+        'pangkat_kepala_dinas',
+        'jabatan_kepala_dinas',
+        'unit_kerja_kepala_dinas',
     ];
 }
