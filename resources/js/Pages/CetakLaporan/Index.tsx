@@ -18,7 +18,7 @@ type IndexProps = {
     data: {
         name: string;
         nip: string;
-    }
+    } | null;
 }
 
 export default function Index({ data }: IndexProps) {
@@ -27,8 +27,8 @@ export default function Index({ data }: IndexProps) {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            nip: data.nip ?? "",
-            name: data.name ?? "",
+            nip: data?.nip ?? "",
+            name: data?.name ?? "",
         },
     });
 
