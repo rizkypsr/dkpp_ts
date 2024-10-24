@@ -124,7 +124,7 @@ export default function Login({
                             />
                             <button type="button" className="absolute right-3 top-0 bottom-0" onClick={() => setShowPassword((prev) => !prev)}>
                                 {
-                                    showPassword ? <EyeOff size={24} /> : <Eye size={24} />
+                                    showPassword ? "Hide" : "Show"
                                 }
                             </button>
                         </div>
