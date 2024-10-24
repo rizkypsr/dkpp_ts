@@ -43,7 +43,6 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('laporan', LaporanController::class);
 
-
     Route::get('cetak-laporan/excel', [CetakLaporanController::class, 'export'])->name('cetak-laporan.export');
     Route::get('cetak-laporan', [CetakLaporanController::class, 'index'])->name('cetak-laporan.index');
 });

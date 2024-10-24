@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Exports\MonevRenaksiExport;
@@ -16,7 +18,7 @@ class CetakLaporanController extends Controller
         $data = CetakLaporan::first();
 
         return Inertia::render('CetakLaporan/Index', [
-            'data' => $data
+            'data' => $data,
         ]);
     }
 

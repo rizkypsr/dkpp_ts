@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exports;
 
 use App\Models\Kurja;
@@ -49,10 +51,7 @@ class MonevSheet implements FromView, ShouldAutoSize, WithStyles, WithColumnWidt
         $this->sheetName = $sheetName;
     }
 
-
-    /**
-     * @return string
-     */
+    /** @return string */
     public function title(): string
     {
         return $this->sheetName;
@@ -103,10 +102,7 @@ class KurjaSheet implements FromView, ShouldAutoSize, WithStyles, WithColumnWidt
         $this->sheetName = $sheetName;
     }
 
-
-    /**
-     * @return string
-     */
+    /** @return string */
     public function title(): string
     {
         return $this->sheetName;
