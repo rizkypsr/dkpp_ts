@@ -14,7 +14,6 @@ use Exception;
 
 class RencanaAksiController extends Controller
 {
-    /** Display a listing of the resource. */
     public function index(string $id)
     {
         $dataRencanaAksi = RencanaAksi::with(['feedbackBy'])->where('data_laporan_monev_renaksi_id', $id)->paginate(10);

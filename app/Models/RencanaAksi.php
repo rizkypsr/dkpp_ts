@@ -29,6 +29,11 @@ class RencanaAksi extends Model
         'data_laporan_monev_renaksi_id',
     ];
 
+    public function monevRenaksi()
+    {
+        return $this->belongsTo(MonevRenaksi::class, 'data_laporan_monev_renaksi_id');
+    }
+
     public function buktiPendukung(): Attribute
     {
         return Attribute::make(
