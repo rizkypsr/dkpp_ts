@@ -20,7 +20,7 @@ export default function Dashboard() {
         'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
     ];
 
-    const data = Object.values(chartData);
+    const data = Object.values(chartData as Record<string, number>);
 
     const chartConfig = {
         labels: labels,
@@ -39,11 +39,11 @@ export default function Dashboard() {
         responsive: true,
         scales: {
             y: {
-                beginAtZero: true, // Ensure the axis starts at zero
+                beginAtZero: true,
                 ticks: {
-                    stepSize: 1, // Set the interval to 1 to show only whole numbers
-                    callback: function (value) {
-                        return Number.isInteger(value) ? value : null; // Only show whole numbers
+                    stepSize: 1,
+                    callback: function (value: unknown) {
+                        return Number.isInteger(value) ? value : null;
                     }
                 }
             }
@@ -60,10 +60,12 @@ export default function Dashboard() {
     };
 
     const rencanaAksiConfig = {
+        // @ts-ignore
         labels: rencanaAksiData.map(item => item.rencanaAksi),
         datasets: [
             {
                 label: 'Capaian',
+                // @ts-ignore
                 data: rencanaAksiData.map(item => item.capaian),
                 backgroundColor: 'rgba(53, 162, 235, 0.2)',
                 borderColor: 'rgba(53, 162, 235, 1)',
@@ -79,6 +81,7 @@ export default function Dashboard() {
                 max: 100,
                 ticks: {
                     stepSize: 10,
+                    // @ts-ignore
                     callback: function (value) {
                         return value + '%';
                     }
@@ -86,6 +89,7 @@ export default function Dashboard() {
             },
             x: {
                 ticks: {
+                    // @ts-ignore
                     callback: function (value, index) {
                         const label = rencanaAksiConfig.labels[index];
                         return label.length > 10 ? label.slice(0, 20) + '...' : label;
@@ -106,10 +110,12 @@ export default function Dashboard() {
 
 
     const kurjaChartConfig = {
+        // @ts-ignore
         labels: kurjaData.map(item => item.kinerja),
         datasets: [
             {
                 label: 'Capaian',
+                // @ts-ignore
                 data: kurjaData.map(item => item.capaian),
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
                 borderColor: 'rgba(255, 99, 132, 1)',
@@ -123,6 +129,7 @@ export default function Dashboard() {
         scales: {
             x: {
                 ticks: {
+                    // @ts-ignore
                     callback: function (value, index) {
                         const label = kurjaChartConfig.labels[index];
                         return label.length > 10 ? label.slice(0, 30) + '...' : label;
@@ -134,6 +141,7 @@ export default function Dashboard() {
                 max: 100,
                 ticks: {
                     stepSize: 10,
+                    // @ts-ignore
                     callback: function (value) {
                         return value + '%';
                     }
@@ -152,6 +160,7 @@ export default function Dashboard() {
     return (
         <AuthenticatedLayout header="Dashboard">
             <div className="max-w-4xl mx-auto mb-20">
+                {/* @ts-ignore */}
                 <Bar data={chartConfig} options={options} />
             </div>
 
