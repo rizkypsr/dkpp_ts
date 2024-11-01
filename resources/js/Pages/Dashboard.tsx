@@ -26,7 +26,7 @@ export default function Dashboard() {
         labels: labels,
         datasets: [
             {
-                label: 'Jumlah Dokumen Ter Upload',
+                label: 'Jumlah Dokumen Laporan Ter Upload',
                 data: data,
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
@@ -159,9 +159,10 @@ export default function Dashboard() {
 
     return (
         <AuthenticatedLayout header="Dashboard">
-            <div className="max-w-4xl mx-auto mb-20">
-                {/* @ts-ignore */}
-                <Bar data={chartConfig} options={options} />
+            <div className="max-w-4xl mx-auto overflow-x-auto mb-20">
+                <div className="min-w-96">
+                    <Bar data={rencanaAksiConfig} options={rencanaAksiOptions} />
+                </div>
             </div>
 
             <div className="max-w-4xl mx-auto overflow-x-auto mb-20">
@@ -170,10 +171,10 @@ export default function Dashboard() {
                 </div>
             </div>
 
-            <div className="max-w-4xl mx-auto overflow-x-auto">
-                <div className="min-w-96">
-                    <Bar data={rencanaAksiConfig} options={rencanaAksiOptions} />
-                </div>
+
+            <div className="max-w-4xl mx-auto">
+                {/* @ts-ignore */}
+                <Bar data={chartConfig} options={options} />
             </div>
         </AuthenticatedLayout>
     );
