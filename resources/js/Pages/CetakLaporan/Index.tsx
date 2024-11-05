@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
     name: z.string({
@@ -230,8 +231,15 @@ export default function Index({ data }: IndexProps) {
                         />
 
 
-                        <Button type="submit">
-                            Cetak Laporan
+                        <Button type="submit" disabled={form.formState.isSubmitting}>
+                            {form.formState.isSubmitting ? (
+                                <>
+                                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                    Tunggu sebentar
+                                </>
+                            ) : (
+                                "Cetak Laporan"
+                            )}
                         </Button>
                     </form>
                 </Form>

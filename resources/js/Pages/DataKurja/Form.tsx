@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { router } from "@inertiajs/react";
+import { Loader2 } from "lucide-react";
 
 type FormProps = {
     form: UseFormReturn<z.infer<typeof FormSchema>>;
@@ -35,7 +36,42 @@ export default function Form({ form, openModal, setOpenModal }: FormProps) {
 
     const onSubmit = (data: z.infer<typeof FormSchema>) => {
         if (data.id) {
-            router.put(route("data-laporan-kurja.update", data.id), data, {
+            return new Promise((resolve) => {
+                router.put(route("data-laporan-kurja.update", data.id), data, {
+                    onSuccess: (page) => {
+                        toast({
+                            title: page.props.flash.success,
+                        });
+
+                        setOpenModal(false);
+                    },
+                    onError: (errors) => {
+                        if (errors.error) {
+                            toast({
+                                variant: "destructive",
+                                title: "Ups! Terjadi kesalahan",
+                                description:
+                                    "Terjadi kesalahan saat menyimpan data",
+                            });
+
+                            setOpenModal(false);
+                        }
+
+                        Object.keys(errors).forEach((key) => {
+                            form.setError(key as any, {
+                                message: errors[key],
+                            });
+                        });
+                    },
+                    onFinish: () => {
+                        resolve('done');
+                    }
+                });
+            });
+        }
+
+        return new Promise((resolve) => {
+            router.post(route("data-laporan-kurja.store"), data, {
                 onSuccess: (page) => {
                     toast({
                         title: page.props.flash.success,
@@ -48,8 +84,7 @@ export default function Form({ form, openModal, setOpenModal }: FormProps) {
                         toast({
                             variant: "destructive",
                             title: "Ups! Terjadi kesalahan",
-                            description:
-                                "Terjadi kesalahan saat menyimpan data",
+                            description: "Terjadi kesalahan saat menyimpan data",
                         });
 
                         setOpenModal(false);
@@ -61,36 +96,10 @@ export default function Form({ form, openModal, setOpenModal }: FormProps) {
                         });
                     });
                 },
-            });
-
-            return;
-        }
-
-        router.post(route("data-laporan-kurja.store"), data, {
-            onSuccess: (page) => {
-                toast({
-                    title: page.props.flash.success,
-                });
-
-                setOpenModal(false);
-            },
-            onError: (errors) => {
-                if (errors.error) {
-                    toast({
-                        variant: "destructive",
-                        title: "Ups! Terjadi kesalahan",
-                        description: "Terjadi kesalahan saat menyimpan data",
-                    });
-
-                    setOpenModal(false);
+                onFinish: () => {
+                    resolve('done');
                 }
-
-                Object.keys(errors).forEach((key) => {
-                    form.setError(key as any, {
-                        message: errors[key],
-                    });
-                });
-            },
+            });
         });
     };
 
@@ -246,7 +255,14 @@ export default function Form({ form, openModal, setOpenModal }: FormProps) {
                             className="mt-6"
                             disabled={form.formState.isSubmitting}
                         >
-                            Submit
+                            {form.formState.isSubmitting ? (
+                                <>
+                                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                    Tunggu sebentar
+                                </>
+                            ) : (
+                                "Submit"
+                            )}
                         </Button>
                     </form>
                 </FormWrapper>

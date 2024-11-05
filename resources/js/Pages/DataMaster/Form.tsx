@@ -26,6 +26,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { FormSchema } from "./FormSchema";
 import { Jabatan } from "@/types";
+import { Loader2 } from "lucide-react";
 
 type FormProps = {
     form: UseFormReturn<FormSchema>;
@@ -51,7 +52,38 @@ export default function Form({
                 data.penilaianKeJabatan = [];
             }
 
-            router.patch(route("data-master.update", data.id), data, {
+            return new Promise((resolve) => {
+                router.patch(route("data-master.update", data.id), data, {
+                    onSuccess: (page) => {
+                        toast({
+                            title: page.props.flash.success,
+                        });
+
+                        setOpenFormModal(false);
+                    },
+                    onError: (errors) => {
+                        console.log("onError", errors);
+
+                        if (errors.error) {
+                            toast({
+                                variant: "destructive",
+                                title: "Ups! Terjadi kesalahan",
+                                description:
+                                    "Terjadi kesalahan saat menyimpan data",
+                            });
+
+                            setOpenFormModal(false);
+                        }
+                    },
+                    onFinish: () => {
+                        resolve("done");
+                    },
+                });
+            });
+        }
+
+        return new Promise((resolve) => {
+            router.post(route("data-master.store"), data, {
                 onSuccess: (page) => {
                     toast({
                         title: page.props.flash.success,
@@ -66,45 +98,22 @@ export default function Form({
                         toast({
                             variant: "destructive",
                             title: "Ups! Terjadi kesalahan",
-                            description:
-                                "Terjadi kesalahan saat menyimpan data",
+                            description: "Terjadi kesalahan saat menyimpan data",
                         });
 
                         setOpenFormModal(false);
                     }
+
+                    Object.keys(errors).forEach((key) => {
+                        form.setError(key as any, {
+                            message: errors[key],
+                        });
+                    });
+                },
+                onFinish: () => {
+                    resolve("done");
                 },
             });
-
-            return;
-        }
-
-        router.post(route("data-master.store"), data, {
-            onSuccess: (page) => {
-                toast({
-                    title: page.props.flash.success,
-                });
-
-                setOpenFormModal(false);
-            },
-            onError: (errors) => {
-                console.log("onError", errors);
-
-                if (errors.error) {
-                    toast({
-                        variant: "destructive",
-                        title: "Ups! Terjadi kesalahan",
-                        description: "Terjadi kesalahan saat menyimpan data",
-                    });
-
-                    setOpenFormModal(false);
-                }
-
-                Object.keys(errors).forEach((key) => {
-                    form.setError(key as any, {
-                        message: errors[key],
-                    });
-                });
-            },
         });
     };
 
@@ -309,7 +318,14 @@ export default function Form({
                             className="mt-6"
                             disabled={form.formState.isSubmitting}
                         >
-                            Submit
+                            {form.formState.isSubmitting ? (
+                                <>
+                                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                    Tunggu sebentar
+                                </>
+                            ) : (
+                                "Submit"
+                            )}
                         </Button>
                     </form>
                 </FormWrapper>
