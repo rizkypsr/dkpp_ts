@@ -13,9 +13,15 @@ use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $currentYear = date('Y');
+        $startYear = $currentYear - 5;
+
+        $selectedYear = $request->input('year', $currentYear);
+
         $counts = Laporan::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+            ->whereYear('created_at', $selectedYear)
             ->groupBy(DB::raw('MONTH(created_at)'))
             ->pluck('count', 'month');
 
@@ -28,6 +34,7 @@ class DashboardController extends Controller
         }
 
         $rencanaAksiData = RencanaAksi::with('monevRenaksi')
+            ->whereYear('created_at', $selectedYear)
             ->get()
             ->map(function ($item) {
                 return [
@@ -36,7 +43,8 @@ class DashboardController extends Controller
                 ];
             });
 
-        $kurjaData = Kurja::all()
+        $kurjaData = Kurja::whereYear('created_at', $selectedYear)
+            ->get()
             ->map(function ($item) {
                 return [
                     'kinerja' => $item->kinerja,
@@ -44,10 +52,14 @@ class DashboardController extends Controller
                 ];
             });
 
+        $availableYears = range($startYear, $currentYear);
+
         return Inertia::render('Dashboard', [
             'chartData' => $allMonths,
             'rencanaAksiData' => $rencanaAksiData,
             'kurjaData' => $kurjaData,
+            'selectedYear' => $selectedYear,
+            'availableYears' => array_reverse($availableYears),
         ]);
     }
 }

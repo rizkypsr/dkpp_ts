@@ -1,5 +1,7 @@
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { usePage } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
@@ -12,8 +14,31 @@ ChartJS.register(
     Legend
 );
 
-export default function Dashboard() {
-    const { chartData, rencanaAksiData, kurjaData } = usePage().props;
+type RencanaAksi = {
+    rencanaAksi: string;
+    capaian: number;
+}
+
+type Kurja = {
+    kinerja: string;
+    capaian: number;
+}
+
+type DashboardProps = {
+    chartData: Record<number, number>;
+    rencanaAksiData: RencanaAksi[];
+    kurjaData: Kurja[];
+    selectedYear: number;
+    availableYears: number[];
+}
+
+export default function Dashboard({
+    chartData,
+    rencanaAksiData,
+    kurjaData,
+    selectedYear,
+    availableYears
+}: DashboardProps) {
 
     const labels = [
         'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
@@ -156,9 +181,36 @@ export default function Dashboard() {
         },
     };
 
+    const handleYearChange = (value: string) => {
+        router.get(route('dashboard'), {
+            year: value,
+        }, {
+            preserveState: true,
+            preserveScroll: true,
+        });
+    };
 
     return (
         <AuthenticatedLayout header="Dashboard">
+            <div className="w-[180px] mt-8 mb-12">
+                <Label>Tahun</Label>
+                <Select
+                    defaultValue={selectedYear.toString()}
+                    onValueChange={handleYearChange}
+                >
+                    <SelectTrigger>
+                        <SelectValue placeholder="Select year" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {availableYears.map((year) => (
+                            <SelectItem key={year} value={year.toString()}>
+                                {year}
+                            </SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+            </div>
+
             <div className="max-w-4xl mx-auto overflow-x-auto mb-20">
                 <div className="min-w-96">
                     <Bar data={rencanaAksiConfig} options={rencanaAksiOptions} />
