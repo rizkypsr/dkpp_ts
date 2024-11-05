@@ -1,11 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\Models\CetakLaporan;
 use App\Models\Kurja;
 use App\Models\Laporan;
-use App\Models\MonevRenaksi;
 use App\Models\RencanaAksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
