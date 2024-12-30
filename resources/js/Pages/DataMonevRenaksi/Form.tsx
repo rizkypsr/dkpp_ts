@@ -37,6 +37,9 @@ export default function Form({ form, openModal, setOpenModal, jabatanOptions }: 
     const { auth } = usePage().props;
     const { toast } = useToast();
 
+    console.log(auth);
+
+
     const onSubmit = (data: z.infer<typeof FormSchema>) => {
         if (data.id) {
             return new Promise((resolve) => {
