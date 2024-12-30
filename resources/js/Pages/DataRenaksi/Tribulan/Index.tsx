@@ -80,7 +80,6 @@ export default function Index({
                     });
                 },
                 onError: (errors) => {
-                    console.log(errors);
                     if (errors.error) {
                         toast({
                             variant: "destructive",

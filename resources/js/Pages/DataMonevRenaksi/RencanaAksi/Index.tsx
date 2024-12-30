@@ -36,8 +36,6 @@ export default function Index({ monevRenaksiId, dataRencanaAksi }: IndexProps) {
     });
 
     const handleUpdate = (data: DataRencanaAksi) => {
-        console.log("edit", data);
-
         form.setValue("id", data.id);
         form.setValue("rencana_aksi", data.rencana_aksi);
         form.setValue("target", data.target);

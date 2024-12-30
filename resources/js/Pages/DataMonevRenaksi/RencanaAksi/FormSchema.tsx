@@ -24,13 +24,7 @@ export const FormSchema = z.object({
             message: "Bukti Pendukung wajib diisi",
         })
         .optional()
-        // .refine(
-        //     (file) => file && file.length > 0,
-        //     "Bukti Pendukung wajib diisi"
-        // )
         .refine((file) => {
-            console.log(file);
-
             if (!file || file.length === 0) {
                 return true;
             }

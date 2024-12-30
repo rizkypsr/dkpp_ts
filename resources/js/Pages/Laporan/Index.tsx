@@ -29,15 +29,15 @@ export default function Index({
 
     const [openFormModal, setOpenFormModal] = React.useState(false);
 
-        const form = useForm<z.infer<typeof FormSchema>>({
-            resolver: zodResolver(FormSchema),
-            defaultValues: {
-                isCreate: true,
-                id: undefined,
-                user: undefined,
-                filename: "",
-            },
-        });
+    const form = useForm<z.infer<typeof FormSchema>>({
+        resolver: zodResolver(FormSchema),
+        defaultValues: {
+            isCreate: true,
+            id: undefined,
+            user: undefined,
+            filename: "",
+        },
+    });
 
     React.useEffect(() => {
         if (!openFormModal) {
@@ -46,8 +46,6 @@ export default function Index({
     }, [openFormModal]);
 
     const handleUpdate = (data: DataLaporan) => {
-        console.log(data);
-
         form.setValue("isCreate", false);
         form.setValue("id", data.id);
         form.setValue("user", {
@@ -59,14 +57,14 @@ export default function Index({
             "tanggal_dikirim",
             new Date(
                 data.tanggal_dikirim.split("-").reverse().join("-") +
-                    "T00:00:00"
+                "T00:00:00"
             )
         );
         form.setValue(
             "tanggal_diterima",
             new Date(
                 data.tanggal_diterima.split("-").reverse().join("-") +
-                    "T00:00:00"
+                "T00:00:00"
             )
         );
 

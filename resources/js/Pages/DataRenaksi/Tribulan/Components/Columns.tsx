@@ -59,9 +59,8 @@ export const columns: ColumnDef<DataTribulan>[] = [
         cell: ({ getValue, row: { original } }) => {
             return (
                 <div
-                    className={`"w-24 ${
-                        original.can_feedback ? "text-green-600" : ""
-                    }`}
+                    className={`"w-24 ${original.can_feedback ? "text-green-600" : ""
+                        }`}
                 >
                     {(getValue() as any) ?? "-"}
                 </div>
@@ -111,7 +110,7 @@ export const columns: ColumnDef<DataTribulan>[] = [
                         <DropdownMenuLabel>Aksi</DropdownMenuLabel>
                         <DropdownMenuItem
                             asChild
-                            onClick={() => console.log(original)}
+                            onClick={() => { }}
                         >
                             <Link
                                 href={route(

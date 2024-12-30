@@ -37,9 +37,6 @@ export default function Index({ dataKurja, jabatanOptions }: IndexProps) {
     });
 
     const handleUpdate = (data: DataKurja) => {
-        console.log(data);
-
-
         form.setValue("id", data.id);
         form.setValue("kinerja", data.kinerja);
         form.setValue("indikator", data.indikator);

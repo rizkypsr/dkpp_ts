@@ -62,8 +62,6 @@ export default function Form({
                         setOpenFormModal(false);
                     },
                     onError: (errors) => {
-                        console.log("onError", errors);
-
                         if (errors.error) {
                             toast({
                                 variant: "destructive",
@@ -92,8 +90,6 @@ export default function Form({
                     setOpenFormModal(false);
                 },
                 onError: (errors) => {
-                    console.log("onError", errors);
-
                     if (errors.error) {
                         toast({
                             variant: "destructive",
@@ -290,11 +286,6 @@ export default function Form({
                                                 isClearable
                                                 options={jabatanOptions as any}
                                                 onChange={(value) => {
-                                                    console.log(
-                                                        "multi select value",
-                                                        value
-                                                    );
-
                                                     field.onChange(value);
                                                 }}
                                                 isDisabled={

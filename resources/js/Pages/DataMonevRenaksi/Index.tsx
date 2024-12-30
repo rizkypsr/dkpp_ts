@@ -38,8 +38,6 @@ export default function Index({ dataMonevRenaksi, jabatanOptions }: IndexProps) 
     }, [openFormModal]);
 
     const handleUpdate = (data: DataMonevRenaksi) => {
-        console.log("edit", data);
-
         form.setValue("id", data.id);
         form.setValue("kinerja", data.kinerja);
         form.setValue("indikator", data.indikator);

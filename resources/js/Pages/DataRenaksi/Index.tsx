@@ -30,8 +30,6 @@ export default function Index({ dataRenaksi }: IndexProps) {
     });
 
     const handleUpdate = (data: DataRenaksi) => {
-        console.log("edit", data);
-
         form.setValue("id", data.id);
         form.setValue("kinerja", data.kinerja);
         form.setValue("indikator", data.indikator);

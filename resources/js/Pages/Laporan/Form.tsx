@@ -125,8 +125,6 @@ export default function Form({
                         setOpenFormModal(false);
                     },
                     onError: (errors) => {
-                        console.log("onError", errors);
-
                         if (errors.error) {
                             toast({
                                 variant: "destructive",
@@ -252,7 +250,7 @@ export default function Form({
                                                             className={cn(
                                                                 "pl-3 text-left font-normal",
                                                                 !field.value &&
-                                                                    "text-muted-foreground"
+                                                                "text-muted-foreground"
                                                             )}
                                                         >
                                                             {field.value ? (
@@ -283,11 +281,11 @@ export default function Form({
                                                             }
                                                             disabled={(date) =>
                                                                 date >
-                                                                    new Date() ||
+                                                                new Date() ||
                                                                 date <
-                                                                    new Date(
-                                                                        "1900-01-01"
-                                                                    )
+                                                                new Date(
+                                                                    "1900-01-01"
+                                                                )
                                                             }
                                                         />
                                                     </PopoverContent>
@@ -317,7 +315,7 @@ export default function Form({
                                                         className={cn(
                                                             "pl-3 text-left font-normal",
                                                             !field.value &&
-                                                                "text-muted-foreground"
+                                                            "text-muted-foreground"
                                                         )}
                                                     >
                                                         {field.value ? (
@@ -348,9 +346,9 @@ export default function Form({
                                                         disabled={(date) =>
                                                             date > new Date() ||
                                                             date <
-                                                                new Date(
-                                                                    "1900-01-01"
-                                                                )
+                                                            new Date(
+                                                                "1900-01-01"
+                                                            )
                                                         }
                                                         initialFocus
                                                     />
