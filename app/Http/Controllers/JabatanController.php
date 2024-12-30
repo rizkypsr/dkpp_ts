@@ -20,7 +20,7 @@ class JabatanController extends Controller
         try {
             $jabatan = Jabatan::create($validated);
 
-            Role::create(['name' => $jabatan->nama]);
+            Role::create(['name' => strtolower(trim(str_replace(' ', '', $jabatan->nama)))]);
 
             return redirect()->back();
         } catch (Exception $e) {

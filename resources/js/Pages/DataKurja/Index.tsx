@@ -1,6 +1,6 @@
 import React from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { PaginatedResponse } from "@/types";
+import { Option, PaginatedResponse } from "@/types";
 import { columns, DataKurja } from "./Components/Columns";
 import { DataTable } from "@/components/ui/data-table";
 import Form from "./Form";
@@ -13,9 +13,10 @@ import { useToast } from "@/hooks/use-toast";
 
 type IndexProps = {
     dataKurja: PaginatedResponse<DataKurja>;
+    jabatanOptions: Option[];
 };
 
-export default function Index({ dataKurja }: IndexProps) {
+export default function Index({ dataKurja, jabatanOptions }: IndexProps) {
     const { toast } = useToast();
 
     const [openFormModal, setOpenFormModal] = React.useState(false);
@@ -31,10 +32,14 @@ export default function Index({ dataKurja }: IndexProps) {
             capaian: 0,
             penjelasan: "",
             alternatif: "",
+            jabatan: undefined,
         },
     });
 
     const handleUpdate = (data: DataKurja) => {
+        console.log(data);
+
+
         form.setValue("id", data.id);
         form.setValue("kinerja", data.kinerja);
         form.setValue("indikator", data.indikator);
@@ -43,6 +48,10 @@ export default function Index({ dataKurja }: IndexProps) {
         form.setValue("capaian", data.capaian);
         form.setValue("penjelasan", data.penjelasan);
         form.setValue("alternatif", data.alternatif);
+        form.setValue("jabatan", data?.jabatan?.map((data) => ({
+            value: data.id,
+            label: data.nama,
+        })));
 
         setOpenFormModal(true);
     };
@@ -90,6 +99,7 @@ export default function Index({ dataKurja }: IndexProps) {
                     form={form}
                     openModal={openFormModal}
                     setOpenModal={setOpenFormModal}
+                    jabatanOptions={jabatanOptions}
                 />
             </div>
             <DataTable<DataKurja>

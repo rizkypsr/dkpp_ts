@@ -27,4 +27,9 @@ class Kurja extends Model
     {
         return $this->hasMany(KeterkaitanKurja::class, 'data_laporan_kurja_id');
     }
+
+    public function jabatan()
+    {
+        return $this->belongsToMany(Jabatan::class, 'kurja_jabatan', 'kurja_id', 'jabatan_id');
+    }
 }

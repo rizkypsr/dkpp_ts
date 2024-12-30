@@ -20,8 +20,8 @@ class RoleSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
-        Role::create(['name' => 'Super Admin']);
+        Role::create(['name' => 'superadmin']);
 
-        $user->assignRole('Super Admin');
+        $user->assignRole('superadmin');
     }
 }

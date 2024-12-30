@@ -5,7 +5,7 @@ import { FormSchema } from "./FormSchema";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PaginatedResponse } from "@/types";
+import { Jabatan, Option, PaginatedResponse } from "@/types";
 import { columns, DataMonevRenaksi } from "./Components/Columns";
 import { DataTable } from "@/components/ui/data-table";
 import { router } from "@inertiajs/react";
@@ -13,9 +13,10 @@ import { useToast } from "@/hooks/use-toast";
 
 type IndexProps = {
     dataMonevRenaksi: PaginatedResponse<DataMonevRenaksi>;
+    jabatanOptions: Option[];
 };
 
-export default function Index({ dataMonevRenaksi }: IndexProps) {
+export default function Index({ dataMonevRenaksi, jabatanOptions }: IndexProps) {
     const { toast } = useToast();
 
     const [openFormModal, setOpenFormModal] = React.useState(false);
@@ -26,6 +27,7 @@ export default function Index({ dataMonevRenaksi }: IndexProps) {
             id: undefined,
             indikator: "",
             kinerja: "",
+            jabatan: undefined,
         },
     });
 
@@ -41,6 +43,10 @@ export default function Index({ dataMonevRenaksi }: IndexProps) {
         form.setValue("id", data.id);
         form.setValue("kinerja", data.kinerja);
         form.setValue("indikator", data.indikator);
+        form.setValue("jabatan", data?.jabatan?.map((data) => ({
+            value: data.id,
+            label: data.nama,
+        })));
 
         setOpenFormModal(true);
     };
@@ -82,6 +88,7 @@ export default function Index({ dataMonevRenaksi }: IndexProps) {
                     form={form}
                     openModal={openFormModal}
                     setOpenModal={setOpenFormModal}
+                    jabatanOptions={jabatanOptions}
                 />
             </div>
             <DataTable<DataMonevRenaksi>

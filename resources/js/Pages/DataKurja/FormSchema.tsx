@@ -14,4 +14,8 @@ export const FormSchema = z.object({
         .nonnegative("Capaian harus positif"),
     penjelasan: z.string().min(1, "Penjelasan wajib diisi"),
     alternatif: z.string().min(1, "Alternatif wajib diisi"),
+    jabatan: z.array(z.object({
+        value: z.number().optional(),
+        label: z.string().optional(),
+    })).optional(),
 });

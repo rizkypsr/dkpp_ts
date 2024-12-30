@@ -15,6 +15,11 @@ export type Jabatan = {
     updated_at: string;
 };
 
+export type Option = {
+    value: string | number;
+    label: string;
+};
+
 export type PaginationLink = {
     url: string | null;
     label: string;

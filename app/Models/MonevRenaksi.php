@@ -22,4 +22,9 @@ class MonevRenaksi extends Model
     {
         return $this->hasMany(RencanaAksi::class, 'data_laporan_monev_renaksi_id');
     }
+
+    public function jabatan()
+    {
+        return $this->belongsToMany(Jabatan::class, 'monev_renaksi_jabatan', 'monev_renaksi_id', 'jabatan_id');
+    }
 }

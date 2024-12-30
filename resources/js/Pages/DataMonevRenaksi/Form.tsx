@@ -20,17 +20,21 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { router } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+import Select from "react-select";
+import { Option } from "@/types";
 
 type FormProps = {
-    form: UseFormReturn<z.infer<typeof FormSchema>>;
+    form: any;
     openModal: boolean;
     setOpenModal: (open: boolean) => void;
+    jabatanOptions: Option[];
 };
 
-export default function Form({ form, openModal, setOpenModal }: FormProps) {
+export default function Form({ form, openModal, setOpenModal, jabatanOptions }: FormProps) {
+    const { auth } = usePage().props;
     const { toast } = useToast();
 
     const onSubmit = (data: z.infer<typeof FormSchema>) => {
@@ -160,6 +164,30 @@ export default function Form({ form, openModal, setOpenModal }: FormProps) {
                                     </FormItem>
                                 )}
                             />
+                            {auth.user?.roles?.some(role => role.name === "kepaladinas" || role.name === "superadmin") && (
+                                <FormField
+                                    control={form.control}
+                                    name="jabatan"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Jabatan</FormLabel>
+                                            <FormControl>
+                                                <Select
+                                                    {...field}
+                                                    isMulti
+                                                    isClearable
+                                                    options={jabatanOptions as any}
+                                                    onChange={(value) => {
+                                                        field.onChange(value);
+                                                    }}
+                                                />
+                                            </FormControl>
+
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            )}
                         </div>
 
                         <Button
