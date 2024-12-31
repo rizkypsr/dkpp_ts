@@ -7,6 +7,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Jabatan } from "@/types";
 import { Link } from "@inertiajs/react";
 import { ColumnDef, RowData } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
@@ -17,6 +18,7 @@ export type DataMonevRenaksi = {
     indikator: string;
     created_at: string;
     updated_at: string;
+    jabatan: Jabatan[];
 };
 
 export const columns: ColumnDef<DataMonevRenaksi>[] = [

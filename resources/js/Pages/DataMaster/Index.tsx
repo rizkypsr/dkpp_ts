@@ -9,7 +9,6 @@ import { useToast } from "@/hooks/use-toast";
 import { columns, DataMaster } from "./Components/Columns";
 import { DataTable } from "@/components/ui/data-table";
 import { Jabatan } from "@/types";
-import { z } from "zod";
 
 type IndexProps = {
     dataMaster: any;
@@ -24,6 +23,7 @@ export default function Index({ dataMaster, jabatanOptions }: IndexProps) {
     const form = useForm<FormSchema>({
         resolver: zodResolver(ValidatorSchema),
         defaultValues: {
+            id: undefined,
             isCreate: true,
             nip: "",
             name: "",
@@ -39,6 +39,7 @@ export default function Index({ dataMaster, jabatanOptions }: IndexProps) {
             form.reset();
         }
     }, [openFormModal]);
+
 
     const handleUpdate = (data: DataMaster) => {
         form.setValue("id", data.id);
