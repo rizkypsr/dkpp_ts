@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title inertia>{{ config('app.name', 'Laravel') }}</title>
+    <title inertia>{{ config('app.name', 'DKPP') }}</title>
 
     <link rel="icon" href="favicon.ico">
 
@@ -20,7 +20,7 @@
     @inertiaHead
 </head>
 
-<body class="w-screen overflow-x-hidden font-sans antialiased">
+<body class="w-screen overflow-x-hidden font-sans antialiased bg-gray-50">
     @inertia
 </body>
 

@@ -1,16 +1,6 @@
 import { PropsWithChildren } from "react";
 import { Link, usePage } from "@inertiajs/react";
 import {
-    Blocks,
-    Bolt,
-    BookText,
-    Dock,
-    File,
-    Home,
-    PanelLeft,
-    Printer,
-} from "lucide-react";
-import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
@@ -18,232 +8,107 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Toaster } from "@/components/ui/toaster";
-import { Button } from "@/components/ui/button";
+import Sidebar from "@/components/Sidebar";
 
 export default function Authenticated({
     header,
     children,
 }: PropsWithChildren<{ header: string }>) {
-    const { url, props } = usePage();
-
-    const isActivePath = (path: string) => url.startsWith(path);
+    const { props } = usePage();
 
     return (
-        <div className="flex flex-col w-full min-h-screen bg-muted/40">
-            <aside className="fixed inset-y-0 left-0 z-10 flex-col hidden border-r bg-background sm:flex">
-                <div className="flex flex-col h-full max-h-screen">
-                    <div className="flex h-14 items-center px-4 lg:h-[60px] lg:px-6 bg-[#181824] text-white">
-                        <Link href="/" className="font-semibold">
-                            <span className="">DKPP</span>
+        <div className="antialiased bg-gray-50">
+            <nav className="bg-[#F44336] shadow-sm shadow-[#F44336] px-4 py-2.5 fixed left-0 right-0 top-0 z-50 text-white">
+                <div className="flex flex-wrap justify-between items-center">
+                    <div className="flex justify-start items-center">
+                        <button
+                            data-drawer-target="drawer-navigation"
+                            data-drawer-toggle="drawer-navigation"
+                            aria-controls="drawer-navigation"
+                            className="p-2 mr-2 rounded-lg cursor-pointer md:hidden hover:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 focus:text-gray-700"
+                        >
+                            <svg
+                                aria-hidden="true"
+                                className="w-6 h-6"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    fillRule="evenodd"
+                                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                                    clipRule="evenodd"
+                                />
+                            </svg>
+                            <svg
+                                aria-hidden="true"
+                                className="hidden w-6 h-6"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    fillRule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clipRule="evenodd"
+                                />
+                            </svg>
+                            <span className="sr-only">Toggle sidebar</span>
+                        </button>
+                        <Link href="/" className="font-semibold md:flex md:items-center gap-3 hidden">
+                            <img src="/images/logo.png" alt="Logo" className="w-8" />
+                            <div className="">DASHBOARD DKPP</div>
                         </Link>
                     </div>
-                    <div className="flex-1 bg-[#1E1E2D] py-6 text-muted-foreground">
-                        <nav className="grid items-start px-2 text-sm font-medium lg:px-4 gap-y-3">
-                            <Link
-                                href={route("dashboard")}
-                                className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${isActivePath("/dashboard")
-                                    ? "text-white"
-                                    : ""
-                                    }`}
-                            >
-                                <Home className="w-4 h-4" />
-                                Dashboard
-                            </Link>
-                            <Link
-                                href={route("data-master.index")}
-                                className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${isActivePath("/data-master")
-                                    ? "text-white"
-                                    : ""
-                                    }`}
-                            >
-                                <Blocks className="w-4 h-4" />
-                                Data Master
-                            </Link>
-                            {/* <Link
-                                href={route("data-laporan-renaksi.index")}
-                                className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${
-                                    isActivePath("/data-laporan-renaksi")
-                                        ? "text-white"
-                                        : ""
-                                }`}
-                            >
-                                <Bolt className="w-4 h-4" />
-                                Data Laporan Renaksi
-                            </Link> */}
-                            <Link
-                                href={route("data-laporan-monev-renaksi.index")}
-                                className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${isActivePath("/data-laporan-monev-renaksi")
-                                    ? "text-white"
-                                    : ""
-                                    }`}
-                            >
-                                <BookText className="w-4 h-4" />
-                                Data Laporan Monev Renaksi
-                            </Link>
-                            <Link
-                                href={route("data-laporan-kurja.index")}
-                                className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${isActivePath("/data-laporan-kurja")
-                                    ? "text-white"
-                                    : ""
-                                    }`}
-                            >
-                                <Dock className="w-4 h-4" />
-                                Data Laporan Kurja
-                            </Link>
-                            <Link
-                                href={route("laporan.index")}
-                                className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${isActivePath("/laporan") ? "text-white" : ""
-                                    }`}
-                            >
-                                <File className="w-4 h-4" />
-                                Laporan
-                            </Link>
-                            <Link
-                                href={route("cetak-laporan.index")}
-                                className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:text-white ${isActivePath('/cetak-laporan') ? 'text-white' : ''}`}
-                            >
-                                <Printer className="w-4 h-4" />
-                                Cetak Laporan
-                            </Link>
-                        </nav>
+                    <div className="flex items-center lg:order-2">
+                        {/* Dropdown menu */}
+                        <div>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <div className="flex flex-col pl-2 text-sm font-semibold border-l cursor-pointer text-white">
+                                        <div className="font-bold">{props.auth.user.name}</div>
+                                        <div className="text-xs">
+                                            {props.auth.user.nip}
+                                        </div>
+                                    </div>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                    <DropdownMenuLabel>
+                                        My Account
+                                    </DropdownMenuLabel>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem asChild>
+                                        <Link
+                                            href={route("logout")}
+                                            className="w-full cursor-pointer"
+                                            method="post"
+                                            as="button"
+                                            replace={true}
+                                        >
+                                            Logout
+                                        </Link>
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        </div>
                     </div>
                 </div>
-            </aside>
+            </nav>
 
-            <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-[17rem]">
-                <header className="sticky top-0 z-30 flex items-center gap-4 px-4 border-b h-14 bg-background sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-                    <Sheet>
-                        <SheetTrigger asChild>
-                            <Button
-                                size="icon"
-                                variant="outline"
-                                className="sm:hidden"
-                            >
-                                <PanelLeft className="w-5 h-5" />
-                                <span className="sr-only">Toggle Menu</span>
-                            </Button>
-                        </SheetTrigger>
-                        <SheetContent side="left" className="sm:max-w-xs">
-                            <nav className="grid gap-6 px-2 text-sm font-medium lg:px-4">
-                                <Link
-                                    href={route("dashboard")}
-                                    className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${isActivePath("/dashboard")
-                                        ? "text-white"
-                                        : ""
-                                        }`}
-                                >
-                                    <Home className="w-4 h-4" />
-                                    Dashboard
-                                </Link>
-                                <Link
-                                    href={route("data-master.index")}
-                                    className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${isActivePath("/data-master")
-                                        ? "font-extrabold"
-                                        : ""
-                                        }`}
-                                >
-                                    <Blocks className="w-4 h-4" />
-                                    Data Master
-                                </Link>
-                                {/* <Link
-                                    href={route("data-laporan-renaksi.index")}
-                                    className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${
-                                        isActivePath("/data-laporan-renaksi")
-                                            ? "text-white"
-                                            : ""
-                                    }`}
-                                >
-                                    <Bolt className="w-4 h-4" />
-                                    Data Laporan Renaksi
-                                </Link> */}
-                                <Link
-                                    href={route(
-                                        "data-laporan-monev-renaksi.index"
-                                    )}
-                                    className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${isActivePath(
-                                        "/data-laporan-monev-renaksi"
-                                    )
-                                        ? "text-white"
-                                        : ""
-                                        }`}
-                                >
-                                    <BookText className="w-4 h-4" />
-                                    Data Laporan Monev Renaksi
-                                </Link>
-                                <Link
-                                    href={route("data-laporan-kurja.index")}
-                                    className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${isActivePath("/data-laporan-kurja")
-                                        ? "text-white"
-                                        : ""
-                                        }`}
-                                >
-                                    <Dock className="w-4 h-4" />
-                                    Data Laporan Kurja
-                                </Link>
-                                <Link
-                                    href={route("laporan.index")}
-                                    className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${isActivePath("/laporan")
-                                        ? "text-white"
-                                        : ""
-                                        }`}
-                                >
-                                    <File className="w-4 h-4" />
-                                    Laporan
-                                </Link>
-                                <Link
-                                    href={route("cetak-laporan.index")}
-                                    className={`flex items-center gap-3 px-3 py-2 transition-all rounded-lg hover:font-bold ${isActivePath('/cetak-laporan') ? 'text-white' : ''}`}
-                                >
-                                    <Printer className="w-4 h-4" />
-                                    Cetak Laporan
-                                </Link>
-                            </nav>
-                        </SheetContent>
-                    </Sheet>
-                    <div className="ml-auto">
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <div className="flex flex-col pl-2 text-sm font-semibold border-l cursor-pointer">
-                                    <div>{props.auth.user.name}</div>
-                                    <div className="text-xs">
-                                        {props.auth.user.nip}
-                                    </div>
-                                    {/* <span>{props.auth.user.roles[0].name}</span> */}
-                                </div>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                                <DropdownMenuLabel>
-                                    My Account
-                                </DropdownMenuLabel>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem asChild>
-                                    <Link
-                                        href={route("logout")}
-                                        className="w-full cursor-pointer"
-                                        method="post"
-                                        as="button"
-                                        replace={true}
-                                    >
-                                        Logout
-                                    </Link>
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </div>
-                </header>
+            {/* Sidebar */}
+            <Sidebar />
 
-                <main className="flex-1 p-4 sm:px-6 sm:py-0">
-                    <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                        {header}
-                    </h2>
+            <main className="pl-4 pr-7 md:ml-72 h-auto pt-20 pb-24">
+                <h2 className="text-xl font-semibold leading-tight text-gray-800">
+                    {header}
+                </h2>
 
-                    {children}
-                </main>
-            </div>
+                {children}
 
-            <Toaster />
+                <footer className="bg-[#2196F3] text-white p-4 fixed bottom-0 w-full flex justify-center sm:justify-end right-0 left-0">
+                    <p>&copy; DKPP KABUPATEN JOMBANG {new Date().getFullYear()}</p>
+                </footer>
+            </main>
         </div>
     );
 }

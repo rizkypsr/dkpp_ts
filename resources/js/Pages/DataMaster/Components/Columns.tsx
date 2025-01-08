@@ -95,7 +95,7 @@ export const columns: ColumnDef<DataMaster>[] = [
         id: "actions",
         cell: ({ row: { original }, table }) => {
             return (
-                <DropdownMenu>
+                <DropdownMenu >
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="w-8 h-8 p-0">
                             <span className="sr-only">Open menu</span>
