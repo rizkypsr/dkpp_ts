@@ -25,7 +25,7 @@ export default function Sidebar() {
 
     return (
         <aside
-            className="fixed top-0 left-0 z-40 w-72 h-screen pt-4 transition-transform -translate-x-full md:translate-x-0 shadow-lg shadow-emerald-600"
+            className="fixed top-0 left-0 z-40 w-72 h-screen pt-8 transition-transform -translate-x-full md:translate-x-0 shadow-lg shadow-emerald-600"
             aria-label="Sidenav"
             id="drawer-navigation"
         >
@@ -42,6 +42,10 @@ export default function Sidebar() {
                         </NavLink>
                     ))}
                 </ul>
+
+                <div className="absolute bottom-0 left-0 right-0 p-5 flex justify-center">
+                    <img src="/images/logo2.png" alt="Logo" className="w-28" />
+                </div>
             </div>
         </aside>
     );

@@ -57,6 +57,7 @@ export default function Authenticated({
                         </button>
                         <Link href="/" className="font-semibold md:flex md:items-center gap-3 hidden">
                             <img src="/images/logo.png" alt="Logo" className="w-8" />
+                            <img src="/images/logo2.png" alt="Logo" className="w-12" />
                             <div className="">DASHBOARD DKPP</div>
                         </Link>
                     </div>
@@ -98,7 +99,7 @@ export default function Authenticated({
             {/* Sidebar */}
             <Sidebar />
 
-            <main className="pl-4 pr-7 md:ml-72 h-auto pt-20 pb-24">
+            <main className="pl-4 pr-7 md:ml-72 h-auto pt-24 pb-24">
                 <h2 className="text-xl font-semibold leading-tight text-gray-800">
                     {header}
                 </h2>

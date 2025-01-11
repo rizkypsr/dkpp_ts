@@ -150,7 +150,7 @@ export default function Login({
                         </label>
                     </div>
 
-                    <div className="flex items-center justify-end mt-4">
+                    <div className="mt-4">
                         {/* {canResetPassword && (
                 <Link
                     href={route("password.request")}
@@ -160,11 +160,15 @@ export default function Login({
                 </Link>
             )} */}
 
-                        <Button className="ms-4" disabled={processing}>
+                        <Button className="w-full" disabled={processing}>
                             Log in
                         </Button>
                     </div>
                 </form>
+
+                <div className="mt-8 mr-6 text-xs text-center text-white flex justify-center">
+                    <img src="/images/logo2.png" alt="Logo" className="w-32" />
+                </div>
             </GuestLayout>
 
             <section className="py-16 my-40 bg-gray-300">
@@ -223,6 +227,11 @@ export default function Login({
                         src="https://dkpp.jombangkab.go.id/assets/main/img/banggaMelayaniBangsas.png"
                         alt="BerAKHLAK"
                         className="w-80"
+                    />
+                    <img
+                        src="/images/logo2.png"
+                        alt="LOGO"
+                        className="w-44 xl:mr-20"
                     />
                     <img
                         src="https://dkpp.jombangkab.go.id/assets/main/img/LOGOJOMBANGFEST2024.png"
